@@ -1834,6 +1834,75 @@ gap: 15px !important;
 
 </div>
 <script>
+/* ===== ENGLISH + GUJARATI MORSE SUPPORT =====
+   International Morse is defined for Latin letters. Gujarati text is first
+   converted to a readable Latin pronunciation and then encoded as Morse. */
+function normalizeMorsicaTextForMorse(value) {
+  const independentVowels = {
+    "અ":"A", "આ":"AA", "ઇ":"I", "ઈ":"EE", "ઉ":"U", "ઊ":"OO",
+    "ઋ":"RI", "એ":"E", "ઐ":"AI", "ઓ":"O", "ઔ":"AU"
+  };
+  const consonants = {
+    "ક":"K", "ખ":"KH", "ગ":"G", "ઘ":"GH", "ઙ":"NG",
+    "ચ":"CH", "છ":"CHH", "જ":"J", "ઝ":"JH", "ઞ":"NY",
+    "ટ":"T", "ઠ":"TH", "ડ":"D", "ઢ":"DH", "ણ":"N",
+    "ત":"T", "થ":"TH", "દ":"D", "ધ":"DH", "ન":"N",
+    "પ":"P", "ફ":"PH", "બ":"B", "ભ":"BH", "મ":"M",
+    "ય":"Y", "ર":"R", "લ":"L", "વ":"V", "શ":"SH",
+    "ષ":"SH", "સ":"S", "હ":"H", "ળ":"L", "ક્ષ":"KSH", "જ્ઞ":"GY"
+  };
+  const vowelSigns = {
+    "ા":"AA", "િ":"I", "ી":"EE", "ુ":"U", "ૂ":"OO", "ૃ":"RI",
+    "ે":"E", "ૈ":"AI", "ો":"O", "ૌ":"AU"
+  };
+  const digits = {
+    "૦":"0", "૧":"1", "૨":"2", "૩":"3", "૪":"4",
+    "૫":"5", "૬":"6", "૭":"7", "૮":"8", "૯":"9"
+  };
+  const source = String(value || "").replace(/ક્ષ/g, "ક્ષ").replace(/જ્ઞ/g, "જ્ઞ");
+  let output = "";
+
+  for (let i = 0; i < source.length; i++) {
+    let character = source[i];
+    let consonantKey = character;
+    if (i + 2 < source.length && source[i + 1] === "્") {
+      const conjunct = character + source[i + 1] + source[i + 2];
+      if (consonants[conjunct]) {
+        consonantKey = conjunct;
+        i += 2;
+      }
+    }
+
+    if (consonants[consonantKey]) {
+      let sound = consonants[consonantKey] + "A";
+      const next = source[i + 1];
+      if (next === "્") {
+        sound = sound.slice(0, -1);
+        i++;
+      } else if (vowelSigns[next]) {
+        sound = sound.slice(0, -1) + vowelSigns[next];
+        i++;
+      }
+      output += sound;
+    } else if (independentVowels[character]) {
+      output += independentVowels[character];
+    } else if (vowelSigns[character]) {
+      output += vowelSigns[character];
+    } else if (digits[character]) {
+      output += digits[character];
+    } else if (character === "ં" || character === "ઁ") {
+      output += "N";
+    } else if (character === "ઃ") {
+      output += "H";
+    } else if (character === "।" || character === "॥") {
+      output += ".";
+    } else {
+      output += character;
+    }
+  }
+  return output.toUpperCase();
+}
+
   function convertSmartText() {
     kangoThinking();
   const input = document.getElementById("smartTextInput").value.trim();
@@ -1860,8 +1929,7 @@ document.getElementById("smartTextResult").textContent = input;
     9: "----."
   };
 
-  const morse = input
-    .toUpperCase()
+  const morse = normalizeMorsicaTextForMorse(input)
     .split("")
     .map(char => {
       if (char === " ") return "/";
@@ -2206,10 +2274,9 @@ function convertTextToMorse() {
     9: "----."
   };
 
-  const text = document
+  const text = normalizeMorsicaTextForMorse(document
     .getElementById("morseTextInput")
-    .value
-    .toUpperCase();
+    .value);
 
   const result = text
     .split("")
@@ -3197,7 +3264,6 @@ resetKangoSleepTimer();
                            border-radius:10px;margin-bottom:12px;">
                 <option value="en-IN">English – India</option>
                 <option value="gu-IN">Gujarati – India</option>
-                <option value="hi-IN">Hindi – India</option>
             </select>
 
             <label style="display:block;margin-bottom:6px;">
@@ -3431,7 +3497,7 @@ resetKangoSleepTimer();
         );
 
         const text = transcriptBox
-            ? transcriptBox.value.trim().toUpperCase()
+            ? normalizeMorsicaTextForMorse(transcriptBox.value.trim())
             : "";
 
         if (!text) {
@@ -4227,8 +4293,7 @@ function startThunder() {
     };
 
     function textToMorse(text) {
-        return text
-            .toUpperCase()
+        return normalizeMorsicaTextForMorse(text)
             .split("")
             .map(function (character) {
                 if (character === " ") return "/";
@@ -4882,8 +4947,7 @@ window.extractPhotoText = async function () {
 };
 
 function photoTextToMorse(text) {
-    return text
-        .toUpperCase()
+    return normalizeMorsicaTextForMorse(text)
         .split("")
         .map(function (character) {
             if (character === " ") {
@@ -5585,8 +5649,7 @@ function makeFormulaReadable(formula) {
 }
 
 function formulaTextToMorse(text) {
-    return text
-        .toUpperCase()
+    return normalizeMorsicaTextForMorse(text)
         .split("")
         .map(function (character) {
             if (character === " ") return "/";
