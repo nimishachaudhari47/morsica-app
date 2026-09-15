@@ -1,0 +1,6152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MORSICA</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, #24104a 0%, transparent 25%),
+        radial-gradient(circle at 80% 30%, #073c25 0%, transparent 25%),
+        #04040b;
+      color:white;
+      min-height:100vh;
+      padding:20px;
+    }
+
+    .app{
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .logo{
+      width:75px;
+      height:75px;
+      border-radius:50%;
+      background:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:38px;
+      box-shadow:0 0 25px #9cff00;
+    }
+
+    .brand h1{
+      font-size:46px;
+      letter-spacing:2px;
+    }
+
+    .brand h1 span{
+      color:#8cff00;
+    }
+
+    .tagline{
+      color:#ddd;
+      margin-top:3px;
+      font-size:18px;
+    }
+
+    .offline{
+      border:1px solid #7cff00;
+      color:white;
+      padding:12px 22px;
+      border-radius:25px;
+      box-shadow:0 0 15px #54ff0066;
+      background:#07130b;
+    }
+
+    .search{
+      width:100%;
+      padding:16px 20px;
+      border-radius:30px;
+      border:1px solid #b34dff;
+      background:#0b0b16;
+      color:white;
+      font-size:18px;
+      outline:none;
+      margin-bottom:25px;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:20px;
+      margin-bottom:22px;
+    }
+
+    .kango,
+    .continue{
+      border-radius:24px;
+      padding:24px;
+      background:#0b0b16dd;
+      border:1px solid #7e3cff;
+      box-shadow:0 0 20px #6f29ff33;
+      min-height:220px;
+    }
+
+    .kango{
+      display:flex;
+      align-items:center;
+      gap:25px;
+    }
+
+    .kango-icon{
+      font-size:110px;
+    }
+
+    .kango h2{
+      color:#98ff00;
+      margin-bottom:10px;
+    }
+
+    .continue h2{
+      margin-bottom:18px;
+    }
+
+    .continue p{
+      margin:10px 0;
+      color:#ddd;
+      font-size:18px;
+    }
+
+    .continue button{
+      width:100%;
+      padding:14px;
+      margin-top:15px;
+      border:none;
+      border-radius:18px;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      color:white;
+      background:linear-gradient(180deg,#77ff00,#246d00);
+      box-shadow:0 0 18px #73ff0066;
+    }
+
+    .quickbar{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-bottom:25px;
+    }
+
+    .quick{
+      padding:15px;
+      border-radius:18px;
+      background:#0b0b16;
+      border:1px solid #444;
+      text-align:center;
+    }
+
+    .quick strong{
+      color:#a6ff00;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:22px;
+    }
+
+    .card{
+      min-height:230px;
+      border-radius:26px;
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+    }
+
+    .card .icon{
+      font-size:55px;
+      margin-bottom:15px;
+    }
+
+    .card h2{
+      font-size:28px;
+      margin-bottom:10px;
+    }
+
+    .card p{
+      color:#ddd;
+      line-height:1.5;
+      margin-bottom:18px;
+    }
+
+    .card button{
+      border:none;
+      border-radius:15px;
+      padding:11px 28px;
+      font-size:17px;
+      color:white;
+      cursor:pointer;
+    }
+
+    .purple{
+      background:linear-gradient(145deg,#25103b,#0d0618);
+      border:1px solid #bd47ff;
+      box-shadow:0 0 22px #8c22ff44;
+    }
+
+    .purple button{
+      background:linear-gradient(180deg,#a600ff,#47108d);
+    }
+
+    .green{
+      background:linear-gradient(145deg,#08351d,#06140c);
+      border:1px solid #7dff00;
+      box-shadow:0 0 22px #4cff0040;
+    }
+
+    .green button{
+      background:linear-gradient(180deg,#66dc00,#1d6200);
+    }
+
+    .gold{
+      background:linear-gradient(145deg,#4a2505,#160d04);
+      border:1px solid #ffbb32;
+      box-shadow:0 0 22px #ff9d0040;
+    }
+
+    .gold button{
+      background:linear-gradient(180deg,#d78b00,#744300);
+    }
+
+    .blue{
+      background:linear-gradient(145deg,#08285a,#080e24);
+      border:1px solid #3e88ff;
+      box-shadow:0 0 22px #266dff44;
+    }
+
+    .blue button{
+      background:linear-gradient(180deg,#316cff,#1434a8);
+    }
+
+    .tip{
+      margin-top:25px;
+      padding:18px;
+      border-radius:20px;
+      background:#090912;
+      border:1px solid #393949;
+      font-size:18px;
+    }
+
+    .tip strong{
+      color:#8cff00;
+    }
+
+    @media(max-width:600px){
+      .hero,
+      .cards{
+        grid-template-columns:1fr;
+      }
+
+      .quickbar{
+        grid-template-columns:1fr;
+      }
+
+      .brand h1{
+        font-size:32px;
+      }
+
+      .logo{
+        width:58px;
+        height:58px;
+      }
+
+      .offline{
+        padding:9px 13px;
+        font-size:13px;
+      }
+
+      .kango{
+        flex-direction:column;
+        text-align:center;
+      }
+    }
+    /* FINAL IMAGE SIZE FIX */
+
+.logo{
+  width: 85px;
+  height: 85px;
+  flex-shrink: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.logo img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.kango-icon{
+  width: 270px;
+  height: 330px;
+  flex-shrink: 0;
+  font-size: 0;
+}
+
+.kango-icon img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+/* COMPACT MAIN SCREEN */
+
+body{
+  padding:12px;
+}
+
+.app{
+  max-width:1180px;
+}
+
+.topbar{
+  margin-bottom:12px;
+}
+
+.search{
+  margin-bottom:14px;
+  padding:12px 18px;
+}
+
+.hero{
+  gap:14px;
+  margin-bottom:14px;
+}
+
+.kango,
+.continue{
+  min-height:180px;
+  padding:16px;
+}
+
+.quickbar{
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.quick{
+  padding:10px;
+}
+
+.cards{
+  gap:14px;
+}
+
+.card{
+  min-height:175px;
+  padding:18px;
+}
+
+.card .icon{
+  font-size:42px;
+  margin-bottom:8px;
+}
+
+.card h2{
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.card p{
+  margin-bottom:10px;
+}
+
+.tip{
+  margin-top:14px;
+  padding:12px;
+}
+/* FINAL SCREEN FIT */
+
+.kango-icon{
+  width:190px;
+  height:230px;
+}
+
+.kango,
+.continue{
+  min-height:150px;
+  padding:12px 16px;
+}
+
+.kango{
+  gap:15px;
+}
+
+.kango h2{
+  margin-bottom:5px;
+  font-size:22px;
+}
+
+.kango p{
+  margin:3px 0;
+}
+
+.continue h2{
+  margin-bottom:10px;
+  font-size:22px;
+}
+
+.continue p{
+  margin:5px 0;
+}
+
+.continue button{
+  padding:10px;
+  margin-top:8px;
+}
+
+.card{
+  min-height:155px;
+  padding:14px;
+}
+
+.card .icon{
+  font-size:36px;
+  margin-bottom:5px;
+}
+
+.card h2{
+  font-size:20px;
+}
+
+.card p{
+  font-size:14px;
+  line-height:1.3;
+}
+/* MORSE MUSIC POPUP */
+.morse-popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(2,3,15,.82);
+  backdrop-filter:blur(8px);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.morse-popup.show{
+  display:flex;
+}
+
+.morse-popup-box{
+  width:min(760px,92vw);
+  position:relative;
+  padding:28px;
+  border-radius:28px;
+  text-align:center;
+  color:white;
+  background:
+    radial-gradient(circle at top,rgba(120,40,255,.28),transparent 45%),
+    linear-gradient(145deg,#080b20,#120828);
+  border:1px solid #b94cff;
+  box-shadow:
+    0 0 25px rgba(169,50,255,.45),
+    0 0 55px rgba(60,255,120,.12);
+}
+#morseToMusicPanel .morse-popup-box {
+    width: min(900px, 94vw);
+    min-height: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 35px;
+    border-radius: 28px;
+}
+.popup-close{
+  position:absolute;
+  right:16px;
+  top:12px;
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:32px;
+  cursor:pointer;
+}
+
+.popup-logo img{
+  width:85px;
+  height:85px;
+  object-fit:contain;
+}
+
+.morse-popup-box h2{
+  margin:5px 0;
+  font-size:30px;
+}
+
+.popup-subtitle{
+  margin:0 0 22px;
+  color:#c9c9df;
+}
+
+.popup-options{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.popup-option{
+  min-height:170px;
+  padding:18px 12px;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
+  transition:.25s;
+}
+
+.popup-option:hover{
+  transform:translateY(-5px) scale(1.02);
+}
+
+.popup-option span{
+  font-size:34px;
+}
+
+.popup-option strong{
+  font-size:18px;
+}
+
+.popup-option small{
+  line-height:1.35;
+  opacity:.85;
+}
+
+.morse-blue{
+  background:linear-gradient(145deg,#08245c,#093d91);
+  border:1px solid #42a5ff;
+}
+
+.music-green{
+  background:linear-gradient(145deg,#073a2d,#08683f);
+  border:1px solid #69ff83;
+}
+
+.mix-purple{
+  background:linear-gradient(145deg,#35106c,#7715a9);
+  border:1px solid #dc5cff;
+}
+
+.popup-decoration{
+  margin-top:22px;
+  color:#9dff38;
+  letter-spacing:6px;
+}
+
+@media(max-width:650px){
+  .popup-options{
+    grid-template-columns:1fr;
+  }
+
+  .morse-popup-box{
+    max-height:90vh;
+    overflow-y:auto;
+  }
+}
+/* ===== MORSICA UNIVERSAL CONVERTER ===== */
+
+#morseToMusicPanel .universal-converter-box{
+    width: min(1200px, 96vw);
+    max-height: 94vh;
+    overflow-y: auto;
+    padding: 24px;
+    border-radius: 24px;
+    position: relative;
+
+    background:
+        radial-gradient(circle at top, rgba(70, 255, 120, 0.08), transparent 35%),
+        linear-gradient(145deg, #050817, #0b1024);
+
+    border: 1px solid rgba(142, 80, 255, 0.45);
+
+    box-shadow:
+        0 0 25px rgba(115, 50, 255, 0.22),
+        0 0 45px rgba(50, 255, 120, 0.08);
+
+    color: white;
+}
+
+/* MAIN TITLE */
+
+.converter-title{
+    text-align: center;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 5px;
+
+    background: linear-gradient(
+        90deg,
+        #70ff45,
+        #42e98b,
+        #a855f7
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.converter-title h1 {
+    font-size: 38px;
+    line-height: 1.15;
+    margin: 0;
+    white-space: nowrap;
+}
+/* SUBTITLE */
+
+.converter-subtitle{
+    text-align: center;
+    font-size: 17px;
+    color: #d7d9e7;
+    margin-bottom: 20px;
+}
+
+/* TOP TABS */
+
+.converter-tabs{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+
+    width:88%;
+    margin:0 auto 20px auto;
+    padding:4px;
+
+    background:#090d20;
+    border:1px solid #2b3150;
+    border-radius:34px;
+}
+
+.converter-tab{
+    min-height:44px;
+    padding:9px 12px;
+
+    border:none;
+    border-radius:28px;
+
+    background:transparent;
+    color:#ffffff;
+
+    font-size:18px;
+    font-weight:700;
+
+    text-align:center;
+    cursor:pointer;
+}
+
+.converter-tab.active{
+    background:linear-gradient(
+        90deg,
+        #176b2d,
+        #2a9d48
+    );
+
+    box-shadow:
+        0 0 16px rgba(65,255,100,.25),
+        inset 0 0 12px rgba(255,255,255,.06);
+}
+
+
+
+/* SECTION BOX */
+
+.converter-section{
+    background: rgba(5,10,25,.72);
+    border: 1px solid #171d35;
+    border-radius: 18px;
+
+    padding: 18px;
+    margin-top: 12px;
+}
+
+/* SECTION HEADING */
+
+.section-title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.section-number{
+    width: 30px;
+    height: 30px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        145deg,
+        #2c9a43,
+        #17662a
+    );
+
+    color: white;
+    font-weight: bold;
+}
+/* ===== PART 2 : INPUT + RESULTS ===== */
+
+/* TEXT INPUT */
+
+.converter-input{
+    width: 100%;
+    min-height: 105px;
+    padding: 16px 18px;
+
+    background: #080d1d;
+    color: white;
+
+    border: 1px solid #35c759;
+    border-radius: 14px;
+
+    font-size: 18px;
+    resize: vertical;
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.converter-input:focus{
+    border-color: #55ff78;
+    box-shadow: 0 0 12px rgba(60,255,100,.18);
+}
+
+/* CONVERTED RESULT ROW */
+
+.result-row{
+    display: grid;
+    grid-template-columns: 210px 1fr 55px;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.result-label{
+    padding: 14px 18px;
+    border-radius: 30px;
+
+    background: #080d1d;
+    border: 1px solid #27304b;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.result-output{
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px 16px;
+
+    background: #080d1d;
+    border: 1px solid #28314c;
+    border-radius: 11px;
+
+    color: white;
+    font-size: 17px;
+}
+
+/* MORSE RESULT */
+
+.result-row.morse .result-label{
+    color: #58ef6e;
+    border-color: rgba(70,230,90,.45);
+}
+
+/* TEXT RESULT */
+
+.result-row.text .result-label{
+    color: #bb72ff;
+    border-color: rgba(170,80,255,.45);
+}
+
+/* MUSIC RESULT */
+
+.result-row.music .result-label{
+    color: #ff76c8;
+    border-color: rgba(255,90,190,.45);
+}
+
+/* COPY / SOUND BUTTON */
+
+.result-action{
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+    border: 1px solid #303855;
+
+    background: #090e20;
+    color: white;
+
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.result-action:hover{
+    border-color: #56ed72;
+    box-shadow: 0 0 12px rgba(60,255,100,.25);
+}
+
+/* ===== PLAY & SETTINGS ===== */
+
+.play-settings{
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    flex-wrap: wrap;
+}
+
+.play-button{
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+    border: 2px solid #55ef72;
+
+    background: #091224;
+    color: white;
+
+    font-size: 25px;
+    cursor: pointer;
+
+    box-shadow: 0 0 16px rgba(60,255,100,.30);
+}
+
+.setting-control{
+    padding: 10px 14px;
+
+    background: #080d1d;
+    color: white;
+
+    border: 1px solid #28314c;
+    border-radius: 10px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .converter-title{
+        font-size: 27px;
+    }
+
+    .result-row{
+        grid-template-columns: 1fr;
+    }
+
+    .result-action{
+        width: 100%;
+    }
+
+    .converter-tabs{
+        grid-template-columns: 1fr;
+        border-radius: 18px;
+    }
+}
+/* ===== PART 3 : CONTROLS + SHARE + TIP ===== */
+
+/* LOOP TOGGLE */
+
+.loop-control{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:16px;
+    color:#fff;
+}
+
+.loop-control input{
+    display:none;
+}
+
+.toggle-switch{
+    width:52px;
+    height:26px;
+    border-radius:30px;
+    background:#303748;
+    position:relative;
+    cursor:pointer;
+}
+
+.toggle-switch::after{
+    content:"";
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#fff;
+
+    position:absolute;
+    top:3px;
+    left:3px;
+
+    transition:.25s;
+}
+
+.loop-control input:checked + .toggle-switch{
+    background:#32c657;
+}
+
+.loop-control input:checked + .toggle-switch::after{
+    left:29px;
+}
+
+
+/* INSTRUMENT + TEMPO */
+
+.instrument-control,
+.tempo-control{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:10px 14px;
+
+    background:#080d1d;
+    border:1px solid #28314c;
+    border-radius:12px;
+}
+
+.instrument-control span,
+.tempo-control span{
+    font-size:28px;
+}
+
+.instrument-control small,
+.tempo-control small{
+    display:block;
+    color:#bfc5d8;
+    margin-bottom:4px;
+}
+
+#smartInstrument,
+#smartTempo{
+    min-width:120px;
+
+    padding:7px 8px;
+
+    border:none;
+    outline:none;
+
+    background:#080d1d;
+    color:white;
+
+    font-size:16px;
+}
+
+
+/* BACKGROUND MELODY */
+
+.background-melody{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    margin-top:14px;
+    padding-top:12px;
+
+    border-top:1px solid #1c2439;
+
+    color:#f0f0f7;
+    font-size:16px;
+}
+
+
+/* SHARE AREA */
+
+.share-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.share-button,
+.copy-button{
+    padding:15px;
+
+    border-radius:12px;
+
+    color:white;
+    font-size:17px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.share-button{
+    border:1px solid #319cff;
+    background:linear-gradient(135deg,#082842,#0c3a60);
+}
+
+.copy-button{
+    border:1px solid #d8ad25;
+    background:linear-gradient(135deg,#44350b,#604a0b);
+}
+
+
+/* TIP BAR */
+
+.converter-tip{
+    margin-top:12px;
+    padding:13px 16px;
+
+    text-align:center;
+
+    border-radius:14px;
+    border:1px solid #1c2239;
+
+    background:#080c1b;
+
+    color:#c17cff;
+    font-size:15px;
+}
+
+.converter-tip strong{
+    color:white;
+}
+
+
+/* FINAL RESPONSIVE FIX */
+
+@media(max-width:900px){
+
+    .play-settings{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .share-actions{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    #morseToMusicPanel .universal-converter-box{
+        width:96vw;
+        padding:14px;
+    }
+
+    .converter-tabs{
+        grid-template-columns:1fr;
+    }
+
+    .play-settings{
+        grid-template-columns:1fr;
+    }
+
+    .share-actions{
+        grid-template-columns:1fr;
+    }
+}
+/* ===== TEXT INPUT AREA ===== */
+
+.text-entry-box{
+    width:100%;
+    margin-top:8px;
+}
+
+#smartTextInput{
+    width:100%;
+    height:42px;
+    min-height:42px;
+    padding:16px 18px;
+
+    box-sizing:border-box;
+    resize:none;
+
+    background:#070d1b;
+    color:#ffffff;
+
+    border:1px solid #35d35a;
+    border-radius:14px;
+    outline:none;
+
+    font-size:18px;
+    line-height:1.4;
+}
+
+#smartTextInput::placeholder{
+    color:#788197;
+}
+
+/* CONVERT BUTTON */
+
+.convert-main-btn{
+    margin-top:12px;
+    padding:12px 28px;
+
+    border:1px solid #3ae15e;
+    border-radius:11px;
+
+    background:linear-gradient(
+        135deg,
+        #12662e,
+        #209442
+    );
+
+    color:white;
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:0 0 12px rgba(60,255,100,.18);
+}
+
+.convert-main-btn:hover{
+    box-shadow:0 0 18px rgba(60,255,100,.32);
+}
+/* KANGO MASCOT */
+.kango-mascot{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    width:fit-content;
+    max-width:320px;
+
+    padding:10px 14px;
+    margin:0 0 16px 0;
+
+    background:rgba(15,18,40,.78);
+    border:1px solid rgba(130,90,255,.45);
+    border-radius:18px;
+
+    box-shadow:
+        0 0 18px rgba(120,70,255,.20),
+        0 0 24px rgba(50,255,140,.10);
+}
+
+.kango-mascot img{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    border-radius:14px;
+}
+
+.kango-message{
+    color:#ffffff;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.35;
+}
+
+/* Playing mood */
+.kango-mascot.playing img{
+    animation:kangoBeat .65s ease-in-out infinite;
+}
+
+/* Happy mood */
+.kango-mascot.happy img{
+    animation:kangoJump .55s ease;
+}
+
+/* Thinking mood */
+.kango-mascot.thinking img{
+    animation:kangoThink 1s ease-in-out infinite;
+}
+
+@keyframes kangoBeat {
+  0%, 100% {
+    transform: translateY(0) rotate(-7deg) scale(1);
+  }
+  25% {
+    transform: translateY(-12px) rotate(8deg) scale(1.08);
+  }
+  50% {
+    transform: translateY(0) rotate(-7deg) scale(1);
+  }
+  75% {
+    transform: translateY(-8px) rotate(8deg) scale(1.05);
+  }
+}
+
+@keyframes kangoJump {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-24px) scale(1.14) rotate(5deg);
+  }
+}
+
+@keyframes kangoThink {
+  0%, 100% {
+    transform: translateX(-4px) rotate(-8deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(8deg) scale(1.08);
+  }
+}
+/* ===== COMPACT MORSICA POPUP ===== */
+
+.morse-popup {
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.universal-converter-box {
+    width: min(88vw, 820px);
+    max-height: 92vh;
+    overflow-y: auto;
+    margin: 20px auto;
+    padding: 14px;
+    box-sizing: border-box;
+}
+
+.morsica-mini-brand img,
+.popup-logo img {
+    max-width: 95px !important;
+    height: auto !important;
+}
+
+.kango-mascot {
+    padding: 6px 10px;
+    margin-bottom: 4px;
+}
+
+.kango-mascot img {
+    width: 62px;
+    height: auto;
+}
+
+.converter-header {
+    margin-bottom: 12px;
+}
+
+.converter-section {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.instrument-control {
+    margin: 8px 0;
+}
+/* Reduce extra vertical space */
+.kango-mascot {
+    margin-bottom: 5px !important;
+}
+
+.converter-header {
+    margin-top: 5px !important;
+    margin-bottom: 6px !important;
+    display: flex !important;
+align-items: center !important;
+justify-content: flex-start !important;
+gap: 15px !important;
+}
+
+.morsica-mini-brand {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+}
+/* ===== EXTRA COMPACT HEIGHT ===== */
+
+.universal-converter-box {
+    padding: 12px 18px !important;
+}
+
+.kango-mascot {
+    padding: 5px 10px !important;
+    margin-bottom: 2px !important;
+}
+
+.converter-header {
+    margin-top: 0 !important;
+    margin-bottom: 4px !important;
+}
+
+.converter-section {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.instrument-control {
+    margin: 4px 0 !important;
+}
+/* ===== COMPACT HEADER ROW ===== */
+
+.converter-header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+
+    margin:0 0 8px 0 !important;
+    padding:0 !important;
+}
+
+.morsica-mini-brand{
+    flex:0 0 auto;
+    margin:0 !important;
+}
+
+.morsica-mini-brand img{
+    width:70px !important;
+    max-width:70px !important;
+    height:auto !important;
+}
+
+.converter-title{
+    margin:0 !important;
+    text-align:left;
+}
+
+.converter-title h1{
+    margin:0 !important;
+    font-size:30px !important;
+    line-height:1.05 !important;
+}
+
+.converter-title p{
+    margin:3px 0 0 0 !important;
+    font-size:18px !important;
+}
+@keyframes kangoIdle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.kango-mascot img {
+    animation: kangoIdle 2.5s ease-in-out infinite;
+}
+
+/* Mood actions override Kango's default idle movement. */
+.kango-mascot.thinking img {
+    animation: kangoThink 1s ease-in-out infinite;
+}
+
+.kango-mascot.playing img {
+    animation: kangoBeat .65s ease-in-out infinite;
+}
+
+.kango-mascot.happy img {
+    animation: kangoJump .55s ease 2;
+}
+/* Final converter screen slightly smaller */
+#morseToMusicPanel .universal-converter-box {
+  zoom: 0.90;
+}
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="topbar">
+
+    <div class="brand">
+      <div class="logo">
+  <img src="assets/logo.png" alt="MORSICA Logo">
+</div>
+
+      <div>
+        <h1>MOR<span>SICA</span></h1>
+        <div class="tagline">music beyond words</div>
+      </div>
+    </div>
+
+    <div class="offline">
+      🌿 Offline Ready
+    </div>
+
+  </div>
+
+  <input
+    class="search"
+    type="text"
+    placeholder="🔍 Search feature, tools, sounds..."
+  >
+
+  <div class="hero">
+
+    <div class="kango">
+      <div class="kango-icon">
+  <img src="assets/kango.png" alt="Kango AI">
+</div>
+
+      <div>
+        <h2>Hello, Friend! 👋</h2>
+        <h3>I'm Kango AI</h3>
+        <p>Your smart companion.</p>
+        <p>Let's create something amazing today! 🎵</p>
+      </div>
+    </div>
+
+    <div class="continue">
+      <h2>↩ Continue Last Project</h2>
+      <p>Text: <b>"HELLO WORLD"</b></p>
+      <p>🎵 Converted to Music</p>
+      <p>2 min ago</p>
+
+      <button>▶ Continue</button>
+    </div>
+
+  </div>
+
+  <div class="quickbar">
+
+    <div class="quick">
+      🎵 <strong>Last Used</strong><br>
+      Convert to Music
+    </div>
+
+    <div class="quick">
+      🌿 <strong>Recent</strong><br>
+      Nature Sound – Rain
+    </div>
+
+    <div class="quick">
+      ⭐ <strong>Favorites</strong><br>
+      3 items
+    </div>
+
+  </div>
+
+  <div class="cards">
+
+    <div class="card purple"
+    onclick="openMorseToMusicPanel()">
+      <div class="icon">🎵↔️</div>
+      <h2>Text - Morse - Music</h2>
+      <p>Convert Text,Morse and Music in one place</p>
+      <button>Explore →</button>
+    </div>
+
+    <div class="card green"
+     onclick="openNatureSoundPanel()">
+      <div class="icon">🌿🎵</div>
+      <h2>Nature Sound to Morse & Music</h2>
+      <p>Listen to nature sounds and convert them to Morse and Music</p>
+      <button>Explore →</button>
+    </div>
+<div class="card purple" onclick="openLiveVoicePanel()">
+    <div class="icon">🎙️ 🔴</div>
+    <h2>Live Voice to Morse & Music</h2>
+    <p>Record your voice and convert it to Morse and Music</p>
+    <button>Start Recording →</button>
+</div>
+    <div class="card gold" onclick="openPhotoMorsePanel()">
+      <div class="icon">📷</div>
+      <h2>Photo to Morse</h2>
+      <p>Extract text from photo and convert it to Morse code</p>
+      <button>Explore →</button>
+    </div>
+
+    <div class="card blue" onclick="openFormulaLabPanel()">
+      <div class="icon">🧪🤖</div>
+      <h2>AI Formula Lab</h2>
+      <p>Math, Science & Chemistry formulas to Morse & Music</p>
+      <button>Explore →</button>
+    </div>
+
+  </div>
+
+  <div class="tip">
+    🦘 <strong>Kango's Tip:</strong>
+    Use short text for best music output.
+  </div>
+
+</div>
+<!-- MORSE & MUSIC POPUP -->
+<div id="morsePopup" class="morse-popup">
+
+  <div class="morse-popup-box">
+
+    <button class="popup-close" onclick="closeMorsePopup()">×</button>
+
+    <div class="popup-logo">
+      <img src="assets/logo.png" alt="MORSICA">
+    </div>
+
+    <h2>Morse ↔ Music</h2>
+    <p class="popup-subtitle">Choose what you want to create</p>
+
+    <div class="popup-options">
+
+      <button class="popup-option mix-purple"
+        onclick="openMorseToMusicPanel()">
+    <span>🎵 •• ─</span>
+    <strong>Text ↔ Morse ↔ Music</strong>
+    <small>Convert Text, Morse and Music in one place</small>
+</button>
+    </div>
+
+    <div class="popup-decoration">♪　• ─ •　♫　• • ─　♪</div>
+
+  </div>
+</div>
+<!-- MORSE ↔ MUSIC PANEL -->
+<div id="morseMusicPanel" class="morse-popup">
+  <div class="morse-popup-box">
+
+    <button class="popup-close" onclick="closeMorseMusicPanel()">×</button>
+
+    <h2>🎵 Morse ↔ Music</h2>
+    <p>Choose conversion type</p>
+
+    <div class="popup-options">
+
+      <button class="popup-option morse-blue"
+              onclick="openMorseToMusic()">
+        <strong>Morse → Music</strong>
+        <small>Convert Morse code into music</small>
+      </button>
+
+      <button class="popup-option music-green"
+              onclick="openMusicToMorse()">
+        <strong>Music → Morse</strong>
+        <small>Convert music into Morse</small>
+      </button>
+
+    </div>
+
+  </div>
+</div>
+<!-- FINAL TEXT • MORSE • MUSIC PANEL -->
+<!-- FINAL TEXT ↔ MORSE ↔ MUSIC PANEL -->
+<div id="morseToMusicPanel" class="morse-popup">
+
+  <div class="universal-converter-box">
+
+    <!-- CLOSE -->
+    <button class="popup-close"
+            onclick="closeMorseToMusicPanel()">×</button>
+
+    <!-- HEADER -->
+    <div class="converter-header">
+
+      <div class="morsica-mini-brand">
+        <img src="assets/logo.png" alt="MORSICA"
+        style="width:125px; height:auto;
+        object-fit:cointain;">
+       
+      </div>
+
+      <div class="converter-title">
+        <h1>
+          <span class="text-green">Text</span>
+          ↔
+          <span class="morse-cyan">Morse</span>
+          ↔
+          <span class="music-purple">Music</span>
+        </h1>
+        <p>Universal Converter</p>
+      </div>
+<div id="kangoMascot" class="kango-mascot" data-mood="idle">
+    <img id="kangoImage"
+         src="assets/ready.gif"
+         alt="Kango Mascot">
+
+    <div id="kangoMessage" class="kango-message">
+        Ready to make some music! 🎵
+    </div>
+</div>
+    </div>
+
+    <!-- TABS -->
+    <div class="converter-tabs">
+
+      <button class="converter-tab active">
+        ⌨ &nbsp; Text
+      </button>
+
+      <button class="converter-tab">
+        ••− &nbsp; Morse
+      </button>
+
+      <button class="converter-tab">
+        ♫ &nbsp; Music Notes
+      </button>
+
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="converter-section">
+
+      <div class="section-heading">
+        <span class="section-number">1</span>
+        Enter Your Text
+      </div>
+
+      <div class="text-entry-box">
+
+        <textarea
+          id="smartTextInput"
+          maxlength="500"
+          placeholder="Type your text here..."
+        ></textarea>
+
+      </div>
+
+      <button class="convert-main-btn"
+              onclick="convertSmartText()">
+        ✨ Convert
+      </button>
+
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="converter-section">
+
+      <div class="section-heading">
+        <span class="section-number">2</span>
+        Converted Results
+      </div>
+
+      <div class="result-row">
+
+        <div class="result-label morse-label">
+          ••− &nbsp; Morse Code
+        </div>
+
+        <div id="smartMorseResult"
+             class="result-output">
+          Morse code will appear here
+        </div>
+
+        <button class="small-action"
+                onclick="copySmartMorse()">
+          ▣
+        </button>
+
+        <button class="small-action sound-green"
+                onclick="toggleSmartMusic()">
+          🔊
+        </button>
+
+      </div>
+
+      <div class="result-row">
+
+        <div class="result-label text-label">
+          T &nbsp; Text
+        </div>
+
+        <div id="smartTextResult"
+             class="result-output">
+          Your text will appear here
+        </div>
+
+        <button class="small-action"
+                onclick="copySmartText()">
+          ▣
+        </button>
+
+      </div>
+
+      <div class="result-row">
+
+        <div class="result-label music-label">
+          ♫ &nbsp; Music (Melody)
+        </div>
+
+        <div id="smartMusicResult"
+             class="result-output melody-output">
+          ♫ ♪ ♬ ♪ ♫ ♪ ♬
+        </div>
+
+        <button class="small-action"
+                onclick="copySmartMusic()">
+          ▣
+        </button>
+
+        <button class="small-action sound-purple"
+                onclick="toggleSmartMusic()">
+          🔊
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="converter-section">
+
+      <div class="section-heading">
+        <span class="section-number">3</span>
+        Play & Settings
+      </div>
+
+      <div class="play-settings">
+
+        <button id="smartPlayBtn"
+                class="big-play"
+                onclick="toggleSmartMusic()">
+          ▶
+          <small>Play</small>
+        </button>
+
+        
+
+        <label class="loop-control">
+          ↻ &nbsp; Loop
+
+          <input type="checkbox"
+                 id="smartLoop"
+            
+
+          <span class="toggle-switch"></span>
+        </label>
+
+        <div class="instrument-control">
+
+          <span>🎹</span>
+
+          <div>
+            <small>Instrument</small>
+
+            <select id="smartInstrument"
+           
+              <option value="piano">Piano</option>
+              <option value="guitar">Guitar</option>
+              <option value="flute">Flute</option>
+              <option value="bell">Bell</option>
+              <option value="synth">Synth</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="tempo-control">
+
+          <span>◴</span>
+
+          <div>
+            <small>Tempo</small>
+
+            <select id="smartTempo"
+            onchange="restartSmartMusicIfplaying()">
+              <option value="slow">Slow</option>
+              <option value="normal" selected>Normal</option>
+              <option value="fast">Fast</option>
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+
+      <label class="background-melody">
+
+        <input type="checkbox"
+               id="smartBackgroundMusic"
+               onchange="restartSmartMusicIfplaying()"
+               checked>
+
+        🎵 Background Melody
+
+      </label>
+
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="converter-section">
+
+      <div class="section-heading">
+        <span class="section-number">4</span>
+        Share
+      </div>
+
+      <div class="share-actions">
+
+        <button class="share-button"
+                onclick="shareSmartResult()">
+          ⤴ &nbsp; Share
+        </button>
+
+        <button class="copy-button"
+                onclick="copySmartMorse()">
+          ▣ &nbsp; Copy
+        </button>
+
+      </div>
+
+    </section>
+
+    <div class="converter-tip">
+      💡
+      <strong>Tip:</strong>
+      Type in Text, Morse, or Music Notes —
+      results will update instantly!
+    </div>
+
+  </div>
+
+</div>
+<script>
+  function convertSmartText() {
+    kangoThinking();
+  const input = document.getElementById("smartTextInput").value.trim();
+
+  if (!input) {
+    document.getElementById("smartMorseResult").textContent =
+      "Please type a message first.";
+    kangoIdle();
+    return;
+    
+  }
+document.getElementById("smartTextResult").textContent = input;
+  const morseCode = {
+    A: ".-", B: "-...", C: "-.-.", D: "-..",
+    E: ".", F: "..-.", G: "--.", H: "....",
+    I: "..", J: ".---", K: "-.-", L: ".-..",
+    M: "--", N: "-.", O: "---", P: ".--.",
+    Q: "--.-", R: ".-.", S: "...", T: "-",
+    U: "..-", V: "...-", W: ".--", X: "-..-",
+    Y: "-.--", Z: "--..",
+    0: "-----", 1: ".----", 2: "..---",
+    3: "...--", 4: "....-", 5: ".....",
+    6: "-....", 7: "--...", 8: "---..",
+    9: "----."
+  };
+
+  const morse = input
+    .toUpperCase()
+    .split("")
+    .map(char => {
+      if (char === " ") return "/";
+      return morseCode[char] || char;
+    })
+    .join(" ");
+
+  document.getElementById("smartMorseResult").textContent = morse;
+  // Create musical notes from Morse pattern
+const noteScale = ["C4", "D4", "E4", "G4", "A4", "B4", "C5"];
+
+let noteIndex = 0;
+
+const musicNotes = morse
+    .split("")
+    .map(symbol => {
+
+        if (symbol === ".") {
+            const note = noteScale[noteIndex % noteScale.length];
+            noteIndex++;
+            return note;
+        }
+
+        if (symbol === "-") {
+            const note = noteScale[(noteIndex + 3) % noteScale.length];
+            noteIndex++;
+            return note;
+        }
+
+        if (symbol === "/") {
+            return " | ";
+        }
+
+        return "";
+    })
+    .filter(note => note !== "")
+    .join("  ");
+
+document.getElementById("smartMusicResult").textContent = musicNotes;
+kangoHappy();
+}
+let smartAudioContext = null;
+let smartMusicPlaying = false;
+let smartMusicTimers = [];
+function toggleSmartMusic() {
+  const btn = document.getElementById("smartPlayBtn");
+  const morse = document.getElementById("smartMorseResult").textContent.trim();
+
+  if (
+    !morse ||
+    morse === "Morse code will appear here" ||
+    morse === "Please type a message first."
+  ) {
+    alert("Please convert a message first.");
+    return;
+  }
+
+  if (smartMusicPlaying) {
+    stopSmartMusic();
+    return;
+  }
+
+  smartMusicPlaying = true;
+  kangoPlaying();
+  
+
+  const instrument = document.getElementById("smartInstrument").value;
+  const tempo = document.getElementById("smartTempo").value;
+  const loop = document.getElementById("smartLoop").checked;
+  const background =
+    document.getElementById("smartBackgroundMusic").checked;
+
+  const speed = {
+    slow: 320,
+    normal: 220,
+    fast: 140
+  }[tempo];
+
+  const waveTypes = {
+    piano: "triangle",
+    guitar: "sawtooth",
+    flute: "sine",
+    bell: "sine",
+    synth: "square"
+  };
+
+  const baseNotes = {
+    piano: [261.63, 329.63, 392.00, 523.25],
+    guitar: [196.00, 246.94, 293.66, 392.00],
+    flute: [523.25, 587.33, 659.25, 783.99],
+    bell: [659.25, 783.99, 987.77, 1046.50],
+    synth: [220.00, 329.63, 440.00, 659.25]
+  };
+
+  smartAudioContext =
+    new (window.AudioContext || window.webkitAudioContext)();
+
+  function playTone(freq, startTime, duration, volume = 0.13) {
+    if (!smartAudioContext) return;
+
+    const osc = smartAudioContext.createOscillator();
+    const gain = smartAudioContext.createGain();
+
+    const currentInstrument =
+    document.getElementById("smartInstrument").value;
+
+osc.type = waveTypes[currentInstrument];
+    osc.frequency.value = freq;
+
+    gain.gain.setValueAtTime(volume, startTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.01,
+      startTime + duration
+    );
+
+    osc.connect(gain);
+    gain.connect(smartAudioContext.destination);
+
+    osc.start(startTime);
+    osc.stop(startTime + duration);
+  }
+
+ function playSequence() {
+    if (!smartMusicPlaying || !smartAudioContext) return;
+
+    const symbols = morse.split("");
+    let symbolIndex = 0;
+    let noteNumber = 0;
+
+    function playNext() {
+        if (!smartMusicPlaying || !smartAudioContext) return;
+
+        // Sequence finished
+        if (symbolIndex >= symbols.length) {
+
+            const currentLoop =
+                document.getElementById("smartLoop").checked;
+
+            if (currentLoop) {
+                symbolIndex = 0;
+                noteNumber = 0;
+
+                const loopTimer = setTimeout(playNext, 250);
+                smartMusicTimers.push(loopTimer);
+            } else {
+                stopSmartMusic();
+            }
+
+            return;
+        }
+
+        const symbol = symbols[symbolIndex++];
+
+        // Read CURRENT tempo every time
+        const currentTempo =
+            document.getElementById("smartTempo").value;
+
+        const currentSpeed = {
+            slow: 320,
+            normal: 220,
+            fast: 140
+        }[currentTempo] || 220;
+
+        let delay = currentSpeed;
+
+        if (symbol === "." || symbol === "-") {
+
+            // Read CURRENT instrument every note
+            const currentInstrument =
+                document.getElementById("smartInstrument").value;
+
+            const notes =
+                baseNotes[currentInstrument] || baseNotes.piano;
+
+            const note =
+                notes[noteNumber % notes.length];
+
+            noteNumber++;
+
+            const duration =
+                symbol === "."
+                    ? currentSpeed / 1000
+                    : (currentSpeed * 2.4) / 1000;
+
+            playTone(
+                note,
+                smartAudioContext.currentTime + 0.01,
+                duration
+            );
+
+            // Read CURRENT Background Melody
+            const currentBackground =
+                document.getElementById(
+                    "smartBackgroundMusic"
+                ).checked;
+
+            if (currentBackground) {
+                const bgNotes =
+                    [130.81, 164.81, 196.00, 220.00];
+
+                const bgNote =
+                    bgNotes[noteNumber % bgNotes.length];
+
+                playTone(
+                    bgNote,
+                    smartAudioContext.currentTime + 0.01,
+                    Math.max(duration + 0.20, 0.50),
+                    0.55
+                );
+            }
+
+            delay =
+                duration * 1000 +
+                currentSpeed / 2.5;
+
+        } else if (symbol === " ") {
+
+            delay = currentSpeed;
+
+        } else if (symbol === "/") {
+
+            delay = currentSpeed * 2.5;
+        }
+
+        const timer =
+            setTimeout(playNext, delay);
+
+        smartMusicTimers.push(timer);
+    }
+
+    playNext();
+}
+
+  playSequence();
+}
+
+function stopSmartMusic() {
+  smartMusicPlaying = false;
+
+  smartMusicTimers.forEach(timer => clearTimeout(timer));
+  smartMusicTimers = [];
+
+  if (smartAudioContext) {
+    smartAudioContext.close();
+    smartAudioContext = null;
+  }
+
+  const btn = document.getElementById("smartPlayBtn");
+  if (btn) btn.textContent = "▶ Play";
+  kangoIdle();
+}
+
+
+function openMorsePopup() {
+  const popup = document.getElementById("morsePopup");
+  if (popup) {
+    popup.classList.add("show");
+  }
+}
+
+function closeMorsePopup() {
+  const popup = document.getElementById("morsePopup");
+  if (popup) {
+    popup.classList.remove("show");
+  }
+}
+function openMorseToMusicPanel() {
+    closeMorsePopup();
+
+    const panel = document.getElementById("morseToMusicPanel");
+
+    if (panel) {
+        panel.classList.add("show");
+    }
+}
+function closeMorseToMusicPanel() {
+    const panel = document.getElementById("morseToMusicPanel");
+
+    if (panel) {
+        panel.classList.remove("show");
+    }
+}
+function openMorseToMusic() {
+    closeMorseMusicPanel();
+
+    const panel = document.getElementById("morseToMusicPanel");
+
+    if (panel) {
+        panel.classList.add("show");
+    }
+}
+/* બહારની કાળી જગ્યા પર ક્લિક કરતાં પણ popup બંધ થશે */
+window.addEventListener("click", function(event) {
+  const popup = document.getElementById("morsePopup");
+
+  if (event.target === popup) {
+    closeMorsePopup();
+  }
+});
+function openTextToMorse() {
+  closeMorsePopup();
+
+  const panel = document.getElementById("textToMorsePanel");
+  if (panel) {
+    panel.classList.add("show");
+  }
+}
+function openTextToMusic() {
+    closeMorsePopup();
+
+    const panel = document.getElementById("textToMusicPanel");
+
+    if (panel) {
+        panel.classList.add("show");
+    }
+}
+function closeTextToMusic() {
+    const panel = document.getElementById("textToMusicPanel");
+    if (panel) {
+        panel.classList.remove("show");
+    }
+}
+function closeTextToMorse() {
+  const panel = document.getElementById("textToMorsePanel");
+  if (panel) {
+    panel.classList.remove("show");
+  }
+}
+
+function convertTextToMorse() {
+  const morseCode = {
+    A: ".-", B: "-...", C: "-.-.", D: "-..",
+    E: ".", F: "..-.", G: "--.", H: "....",
+    I: "..", J: ".---", K: "-.-", L: ".-..",
+    M: "--", N: "-.", O: "---", P: ".--.",
+    Q: "--.-", R: ".-.", S: "...", T: "-",
+    U: "..-", V: "...-", W: ".--", X: "-..-",
+    Y: "-.--", Z: "--..",
+    0: "-----", 1: ".----", 2: "..---",
+    3: "...--", 4: "....-", 5: ".....",
+    6: "-....", 7: "--...", 8: "---..",
+    9: "----."
+  };
+
+  const text = document
+    .getElementById("morseTextInput")
+    .value
+    .toUpperCase();
+
+  const result = text
+    .split("")
+    .map(char => {
+      if (char === " ") return "/";
+      return morseCode[char] || char;
+    })
+    .join(" ");
+
+  document.getElementById("morseResult").textContent =
+    result || "Morse code will appear here";
+}
+// ===== KANGO MOOD CONTROL =====
+function setKangoMood(mood, message) {
+    const kango = document.getElementById("kangoMascot");
+    const msg = document.getElementById("kangoMessage");
+
+    if (!kango) return;
+
+    kango.classList.remove("playing", "happy", "thinking");
+
+    if (mood) {
+        kango.classList.add(mood);
+    }
+
+    if (msg && message) {
+        msg.textContent = message;
+    }
+}
+
+function kangoIdle() {
+    const image = document.getElementById("kangoImage");
+
+    if (image) {
+        image.src = "assets/ready.gif";
+        image.style.animation = "none";
+    }
+
+    setKangoMood("", "Ready to make some music! 🎵");
+}
+
+function kangoThinking() {
+    const image = document.getElementById("kangoImage");
+
+    if (image) {
+        image.src = "assets/thinking.gif";
+        image.style.animation = "none";
+    }
+
+    setKangoMood("", "Let me convert that... 🤔");
+}
+
+function kangoPlaying() {
+    setKangoMood("playing", "Playing your Morse melody! 🎶");
+}
+
+function kangoHappy() {
+    const image = document.getElementById("kangoImage");
+
+    if (image) {
+        image.src = "assets/happy.gif";
+        image.style.animation = "none";
+    }
+
+    setKangoMood("", "Done! Your conversion is ready! ✨");
+
+    setTimeout(() => {
+        kangoIdle();
+    }, 1800);
+}
+
+</script>
+<!-- NATURE SOUND PANEL -->
+<div id="natureSoundPanel" class="morse-popup">
+    <div class="morse-popup-box">
+
+        <button class="popup-close" onclick="closeNatureSoundPanel()">✕</button>
+
+        <h2>🌿 Nature Sound to Morse & Music 🎵</h2>
+
+        <img src="assets/listening.gif"
+             alt="Kango Listening"
+             style="width:110px; border-radius:18px; margin:10px auto; display:block;">
+
+        <p style="text-align:center;">
+            Choose a nature sound
+        </p>
+
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+
+    <button onclick="selectNatureSound('forest')">🌲 Forest</button>
+
+    <button onclick="selectNatureSound('rain')">🌧️ Rain</button>
+
+    <button onclick="selectNatureSound('ocean')">🌊 Ocean Waves</button>
+
+    <button onclick="selectNatureSound('birds')">🐦 Birds</button>
+
+    <button onclick="selectNatureSound('wind')">💨 Wind</button>
+
+    <button onclick="selectNatureSound('thunder')">⛈️ Thunder</button>
+
+</div>
+
+        <div id="natureSoundMessage" style="text-align:center; margin-top:15px;">
+            Kango is ready to listen 🎧
+        </div>
+
+    </div>
+</div>
+<script>
+function openNatureSoundPanel() {
+    const panel = document.getElementById("natureSoundPanel");
+
+    if (panel) {
+        panel.classList.add("show");
+    }
+}
+
+function closeNatureSoundPanel() {
+    const panel = document.getElementById("natureSoundPanel");
+
+    if (panel) {
+        panel.classList.remove("show");
+    }
+}
+
+function selectNatureSound(sound) {
+    const message = document.getElementById("natureSoundMessage");
+
+    if (sound === "forest") {
+        message.textContent = "🌲 Kango is listening to Forest sounds...";
+    }
+
+    if (sound === "cloud") {
+        message.textContent = "☁️ Kango is listening to Cloud sounds...";
+    }
+}
+</script>
+<!-- LIVE VOICE PANEL -->
+<div id="liveVoicePanel" class="morse-popup">
+    <div class="morse-popup-box">
+
+        <button class="popup-close" onclick="closeLiveVoicePanel()">✕</button>
+
+        <h2>🎙️ Live Voice to Morse & Music</h2>
+
+        <img id="recordingKango"
+             src="assets/recording.gif"
+             alt="Kango Recording"
+             style="width:110px; border-radius:18px; margin:10px auto; display:block;">
+
+        <p style="text-align:center;">
+            Speak clearly and let Kango listen
+        </p>
+
+        <div style="display:flex; gap:12px; justify-content:center;">
+            <button onclick="startVoiceRecording()">🔴 Start Recording</button>
+            <button onclick="stopVoiceRecording()">⏹ Stop Recording</button>
+        </div>
+
+        <div id="recordingMessage"
+             style="text-align:center; margin-top:15px;">
+            Kango is ready to record 🎧
+        </div>
+<audio id="recordedAudio"
+       controls
+       style="display:none; width:90%; margin:15px auto;">
+</audio>
+    </div>
+</div>
+
+<!-- TEXT TO MORSE PANEL -->
+<div id="textToMorsePanel" class="morse-popup">
+  <div class="morse-popup-box">
+
+    <button class="popup-close" onclick="closeTextToMorse()">×</button>
+
+    <div class="popup-logo">
+      <img src="assets/logo.png" alt="MORSICA">
+    </div>
+
+    <h2>Text to Morse</h2>
+    <p class="popup-subtitle">Turn your message into Morse code</p>
+
+    <textarea
+      id="morseTextInput"
+      
+      oninput="autoGrow(this)"
+      placeholder="Type your message here..."
+      style="
+        width:90%;
+        height:42px;
+        min-height:42px;
+        overflow-y:hidden;
+        padding:9px 15px;
+        box-sizing:border-box;
+        margin:20px auto;
+        display:block;
+        border-radius:15px;
+        border:1px solid #45aaff;
+        background:#10152d;
+        color:white;
+        font-size:16px;
+        resize:none;
+      ">
+    </textarea>
+
+    <button
+      onclick="convertTextToMorse()"
+      style="
+        padding:12px 30px;
+        border:none;
+        border-radius:25px;
+        background:linear-gradient(90deg,#268cff,#8b45ff);
+        color:white;
+        font-weight:bold;
+        cursor:pointer;
+      ">
+      Convert to Morse
+    </button>
+
+    <div
+      id="morseResult"
+      style="
+        margin:20px auto;
+        padding:15px;
+        width:85%;
+        min-height:40px;
+        border-radius:12px;
+        background:#0b1024;
+        color:#7ee7ff;
+        font-size:18px;
+        letter-spacing:3px;
+      ">
+      Morse code will appear here
+    </div>
+<button onclick="shareMorse()">📤 Share Morse</button>
+  </div>
+</div>
+<!-- TEXT TO MUSIC PANEL -->
+<div id="textToMusicPanel" class="morse-popup">
+  <div class="morse-popup-box">
+
+    <button class="popup-close" onclick="closeTextToMusic()">×</button>
+
+    <h2>🎵 Text to Music</h2>
+    <p>Turn your text into music</p>
+
+    <textarea id="musicTextInput"
+      placeholder="Type your message here..."></textarea>
+
+    <button onclick="convertTextToMusic()">
+      🎵 Convert to Music
+    </button>
+<label style="display:block; margin:12px 0;">
+  <input type="checkbox" id="musicLoop">
+  🔁 Loop
+</label>
+
+<button id="musicPlayStopBtn"
+onclick="toggleTextMusic()">
+  ⏹ Stop
+</button>
+    <div id="musicResult">
+      Your music will appear here
+    </div>
+
+  </div>
+</div>
+<script>
+function shareMorse() {
+  const morseText = document.getElementById("morseResult").textContent.trim();
+
+  if (!morseText || morseText === "Morse code will appear here") {
+    alert("Please convert a message to Morse first.");
+    return;
+  }
+
+  const popup = document.getElementById("shareOptionsPopup");
+
+  if (popup) {
+    popup.classList.add("show");
+  }
+}
+function convertTextToMusic() {
+    const text = document.getElementById("musicTextInput").value.trim();
+    const result = document.getElementById("musicResult");
+
+    if (!text) {
+        result.textContent = "Please enter a message first.";
+        return;
+    }
+
+    result.textContent = "🎵 Playing your text as music...";
+document.getElementById("musicPlayStopBtn").textContent = "⏹ Stop";
+    textMusicAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88];
+
+    text.toLowerCase().split("").forEach((char, index) => {
+        if (char === " ") return;
+
+        const oscillator = textMusicAudioCtx.createOscillator();
+        const gain = textMusicAudioCtx.createGain();
+
+        const noteIndex = char.charCodeAt(0) % notes.length;
+        oscillator.frequency.value = notes[noteIndex];
+        oscillator.type = "sine";
+
+        oscillator.connect(gain);
+        gain.connect(textMusicAudioCtx.destination);
+
+        const start = textMusicAudioCtx.currentTime + index * 0.25;
+        gain.gain.setValueAtTime(0.15, start);
+        gain.gain.exponentialRampToValueAtTime(0.01, start + 0.20);
+
+        oscillator.start(start);
+        oscillator.stop(start + 0.20);
+    });
+
+const loopBox = document.getElementById("musicLoop");
+
+if (loopBox && loopBox.checked) {
+    const duration = text.length * 250 + 300;
+
+    textMusicLoopTimer = setTimeout(() => {
+        convertTextToMusic();
+    }, duration);
+}
+}
+let textMusicAudioCtx = null;
+let textMusicLoopTimer = null;
+
+function stopTextMusic() {
+    if (textMusicLoopTimer) {
+        clearTimeout(textMusicLoopTimer);
+        textMusicLoopTimer = null;
+    }
+
+    if (textMusicAudioCtx) {
+        textMusicAudioCtx.close();
+        textMusicAudioCtx = null;
+    }
+
+    const result = document.getElementById("musicResult");
+    if (result) {
+        result.textContent = "⏹ Music stopped";
+        document.getElementById("musicPlayStopBtn").textContent = "▶ Play";
+    }
+}
+function toggleTextMusic() {
+    const btn = document.getElementById("musicPlayStopBtn");
+
+    if (textMusicAudioCtx) {
+        stopTextMusic();
+        if (btn) btn.textContent = "▶ Play";
+    } else {
+        convertTextToMusic();
+        if (btn) btn.textContent = "⏹ Stop";
+    }
+}
+function closeShareOptions() {
+  const popup = document.getElementById("shareOptionsPopup");
+
+  if (popup) {
+    popup.classList.remove("show");
+  }
+}
+function showMorsicaToast(message) {
+  const toast = document.createElement("div");
+  toast.textContent = message;
+
+  toast.style.position = "fixed";
+  toast.style.bottom = "30px";
+  toast.style.left = "50%";
+  toast.style.transform = "translateX(-50%)";
+  toast.style.background = "#1f1b3a";
+  toast.style.color = "white";
+  toast.style.padding = "12px 22px";
+  toast.style.borderRadius = "12px";
+  toast.style.zIndex = "99999";
+  toast.style.fontSize = "16px";
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 2000);
+}
+async function copyMorseOnly() {
+  const morseText = document.getElementById("morseResult").textContent.trim();
+
+  await navigator.clipboard.writeText(morseText);
+  showMorsicaToast("✓ Morse Copied");
+}
+
+
+
+function autoGrow(el) {
+    el.style.height = "50px";
+    el.style.height = Math.max(50, el.scrollHeight) + "px";
+}
+</script>
+<!-- MORSICA SHARE POPUP -->
+<div id="shareOptionsPopup" class="morse-popup">
+
+  <div class="morse-popup-box">
+
+    <button class="popup-close" onclick="closeShareOptions()">×</button>
+
+    <div class="popup-logo">
+      <img src="assets/logo.png" alt="MORSICA">
+    </div>
+
+    <h2>Share Morse</h2>
+    <p class="popup-subtitle">Choose how you want to share</p>
+
+    <div class="popup-options">
+
+      
+      <button class="popup-option morse-blue" onclick="copyMorseOnly()">
+        <span>📋</span>
+        <strong>Copy Morse</strong>
+        <small>Copy Morse code to clipboard</small>
+      </button>
+<button class="popup-option mix-purple" onclick="shareToWhatsApp()">
+    <span>🟢</span>
+    <strong>WhatsApp</strong>
+    <small>Share message on WhatsApp</small>
+</button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+    function shareToWhatsApp() {
+    const originalText =
+        document.getElementById("morseTextInput").value.trim();
+
+    if (!originalText) {
+        alert("Please enter a message first.");
+        return;
+    }
+
+    const whatsappUrl =
+        "https://wa.me/?text=" + encodeURIComponent(originalText);
+
+    window.open(whatsappUrl, "_blank");
+}
+async function shareToOtherApps() {
+  const originalText =
+    document.getElementById("morseTextInput").value.trim();
+
+ const shareText = originalText;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "MORSICA Morse Message",
+        text: shareText
+      });
+    } catch (error) {
+      console.log("Share cancelled");
+    }
+  } else {
+    await navigator.clipboard.writeText(shareText);
+    alert("Message copied. You can paste it into another app.");
+  }
+}
+
+async function copyTextAndMorse() {
+  const originalText =
+    document.getElementById("morseTextInput").value.trim();
+
+  const morseText =
+    document.getElementById("morseResult").textContent.trim();
+
+  const copyText =
+`Text: ${originalText}
+
+Morse:
+${morseText}`;
+
+  await navigator.clipboard.writeText(copyText);
+
+  alert("Text and Morse copied.");
+}
+function sendMorsicaMessage() {
+  const receiver =
+    document.getElementById("morsicaReceiver").value.trim();
+
+  const morseText =
+    document.getElementById("sendMorsePreview").textContent.trim();
+
+  if (!receiver) {
+    alert("Please enter a MORSICA ID or user name.");
+    return;
+  }
+
+  if (!morseText || morseText === "Morse message preview") {
+    alert("No Morse message available.");
+    return;
+  }
+
+  const message = {
+    to: receiver,
+    morse: morseText,
+    time: new Date().toLocaleString()
+  };
+
+  const sentMessages =
+    JSON.parse(localStorage.getItem("morsicaSentMessages") || "[]");
+
+  sentMessages.push(message);
+
+  localStorage.setItem(
+    "morsicaSentMessages",
+    JSON.stringify(sentMessages)
+  );
+
+  alert("Message sent in MORSICA!");
+
+  document.getElementById("morsicaReceiver").value = "";
+  closeSendMorsica();
+}
+</script>
+<script>
+/* ===== COMPLETE MASTER KANGO ACTIONS ===== */
+
+let voiceRecorder = null;
+let voiceStream = null;
+let recordedChunks = [];
+let recordedVoiceUrl = "";
+let kangoSleepTimer;
+
+
+/* ===== COMMON KANGO GIF ===== */
+
+function changeKangoGif(fileName, message) {
+    const image = document.getElementById("kangoImage");
+    const text = document.getElementById("kangoMessage");
+
+    if (image) {
+        image.src = "assets/" + fileName;
+        image.style.animation = "none";
+    }
+
+    if (text && message) {
+        text.textContent = message;
+    }
+}
+
+function changeRecordingKango(fileName) {
+    const image = document.querySelector("#liveVoicePanel img");
+
+    if (image) {
+        image.src = "assets/" + fileName;
+        image.style.animation = "none";
+    }
+}
+
+function kangoReadyAction() {
+    changeKangoGif("ready.gif", "Ready to make some music! 🎵");
+}
+
+function kangoThinkingAction() {
+    changeKangoGif("thinking.gif", "Let me convert that... 🤔");
+}
+
+function kangoHappyAction() {
+    changeKangoGif(
+        "happy.gif",
+        "Done! Your conversion is ready! ✨"
+    );
+
+    setTimeout(kangoReadyAction, 1800);
+}
+
+function kangoDancingAction() {
+    changeKangoGif(
+        "dancing.gif",
+        "Playing your music! 🎶"
+    );
+}
+
+function kangoListeningAction() {
+    changeKangoGif(
+        "listening.gif",
+        "Listening carefully... 🎧"
+    );
+}
+
+function kangoRecordingAction() {
+    changeKangoGif(
+        "recording.gif",
+        "Recording your voice... 🔴"
+    );
+
+    changeRecordingKango("recording.gif");
+}
+
+function kangoDownloadingAction() {
+    changeKangoGif(
+        "downloading.gif",
+        "Saving your creation... ⬇️"
+    );
+
+    setTimeout(kangoReadyAction, 2200);
+}
+
+function kangoSleepingAction() {
+    changeKangoGif(
+        "sleeping.gif",
+        "Kango is sleeping... 💤"
+    );
+}
+
+
+/* ===== CREATE PLAYBACK AND DOWNLOAD UI ===== */
+
+function createVoiceResultUI() {
+    const box = document.querySelector(
+        "#liveVoicePanel .morse-popup-box"
+    );
+
+    if (!box) return;
+
+    let audio = document.getElementById("recordedAudio");
+
+    if (!audio) {
+        audio = document.createElement("audio");
+        audio.id = "recordedAudio";
+        audio.controls = true;
+        audio.style.cssText =
+            "display:none;width:90%;margin:15px auto;";
+
+        box.appendChild(audio);
+
+        audio.addEventListener("play", function() {
+            kangoDancingAction();
+        });
+
+        audio.addEventListener("pause", function() {
+            kangoReadyAction();
+        });
+
+        audio.addEventListener("ended", function() {
+            kangoReadyAction();
+        });
+    }
+
+    let download = document.getElementById(
+        "downloadVoiceRecording"
+    );
+
+    if (!download) {
+        download = document.createElement("a");
+        download.id = "downloadVoiceRecording";
+        download.textContent = "⬇️ Download Recording";
+        download.download = "morsica-voice-recording.webm";
+
+        download.style.cssText =
+            "display:none;text-align:center;" +
+            "margin:12px auto;padding:10px 16px;" +
+            "width:max-content;border-radius:12px;" +
+            "background:#65d93b;color:#08110b;" +
+            "font-weight:bold;text-decoration:none;";
+
+        download.addEventListener("click", function() {
+            kangoDownloadingAction();
+        });
+
+        box.appendChild(download);
+    }
+}
+
+
+/* ===== LIVE VOICE POPUP ===== */
+
+function openLiveVoicePanel() {
+    const panel = document.getElementById("liveVoicePanel");
+
+    if (panel) {
+        panel.classList.add("show");
+    }
+
+    createVoiceResultUI();
+    changeRecordingKango("recording.gif");
+}
+
+function closeLiveVoicePanel() {
+    const panel = document.getElementById("liveVoicePanel");
+
+    if (
+        voiceRecorder &&
+        voiceRecorder.state === "recording"
+    ) {
+        voiceRecorder.stop();
+    }
+
+    stopMicrophoneTracks();
+
+    if (panel) {
+        panel.classList.remove("show");
+    }
+
+    kangoReadyAction();
+}
+
+function stopMicrophoneTracks() {
+    if (voiceStream) {
+        voiceStream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+
+        voiceStream = null;
+    }
+}
+
+
+/* ===== START RECORDING ===== */
+
+async function startVoiceRecording() {
+    const message = document.getElementById(
+        "recordingMessage"
+    );
+
+    const audio = document.getElementById("recordedAudio");
+    const download = document.getElementById(
+        "downloadVoiceRecording"
+    );
+
+    createVoiceResultUI();
+
+    if (
+        voiceRecorder &&
+        voiceRecorder.state === "recording"
+    ) {
+        if (message) {
+            message.textContent =
+                "🔴 Recording is already running...";
+        }
+
+        return;
+    }
+
+    try {
+        voiceStream =
+            await navigator.mediaDevices.getUserMedia({
+                audio: true
+            });
+
+        recordedChunks = [];
+
+        voiceRecorder = new MediaRecorder(voiceStream);
+
+        voiceRecorder.ondataavailable = function(event) {
+            if (event.data && event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
+        };
+
+        voiceRecorder.onstop = function() {
+            const voiceBlob = new Blob(recordedChunks, {
+                type: voiceRecorder.mimeType ||
+                      "audio/webm"
+            });
+
+            if (recordedVoiceUrl) {
+                URL.revokeObjectURL(recordedVoiceUrl);
+            }
+
+            recordedVoiceUrl =
+                URL.createObjectURL(voiceBlob);
+
+            const resultAudio =
+                document.getElementById("recordedAudio");
+
+            const resultDownload =
+                document.getElementById(
+                    "downloadVoiceRecording"
+                );
+
+            if (resultAudio) {
+                resultAudio.src = recordedVoiceUrl;
+                resultAudio.style.display = "block";
+            }
+
+            if (resultDownload) {
+                resultDownload.href = recordedVoiceUrl;
+                resultDownload.style.display = "block";
+            }
+
+            if (message) {
+                message.textContent =
+                    "✅ Recording ready — press Play";
+            }
+
+            changeRecordingKango("happy.gif");
+            stopMicrophoneTracks();
+
+            setTimeout(function() {
+                changeRecordingKango("ready.gif");
+            }, 1800);
+        };
+
+        voiceRecorder.start();
+
+        if (audio) {
+            audio.pause();
+            audio.style.display = "none";
+        }
+
+        if (download) {
+            download.style.display = "none";
+        }
+
+        if (message) {
+            message.textContent =
+                "🔴 Recording your voice...";
+        }
+
+        kangoRecordingAction();
+
+    } catch (error) {
+        if (message) {
+            message.textContent =
+                "🎙️ Please allow microphone permission";
+        }
+
+        changeRecordingKango("ready.gif");
+    }
+}
+
+
+/* ===== STOP RECORDING ===== */
+
+function stopVoiceRecording() {
+    const message = document.getElementById(
+        "recordingMessage"
+    );
+
+    if (
+        voiceRecorder &&
+        voiceRecorder.state === "recording"
+    ) {
+        voiceRecorder.stop();
+
+        if (message) {
+            message.textContent =
+                "⏳ Preparing your recording...";
+        }
+
+        kangoHappyAction();
+
+    } else if (message) {
+        message.textContent =
+            "Start Recording first 🎙️";
+    }
+}
+
+
+/* ===== AUTOMATIC BUTTON ACTIONS ===== */
+
+document.addEventListener("click", function(event) {
+    const clicked = event.target.closest(
+        "button, .card, a"
+    );
+
+    if (!clicked) return;
+
+    const name =
+        clicked.textContent.toLowerCase().trim();
+
+    if (
+        name.includes("download") ||
+        name.includes("save") ||
+        name.includes("export")
+    ) {
+        kangoDownloadingAction();
+    }
+
+    if (
+        name.includes("play") ||
+        name.includes("listen & convert")
+    ) {
+        kangoDancingAction();
+    }
+});
+
+
+/* ===== AUTOMATIC SLEEP MODE ===== */
+
+function resetKangoSleepTimer() {
+    clearTimeout(kangoSleepTimer);
+
+    kangoSleepTimer = setTimeout(function() {
+        if (
+            !voiceRecorder ||
+            voiceRecorder.state !== "recording"
+        ) {
+            kangoSleepingAction();
+        }
+    }, 60000);
+}
+
+["click", "keydown", "touchstart"].forEach(
+    function(action) {
+        document.addEventListener(
+            action,
+            resetKangoSleepTimer
+        );
+    }
+);
+
+createVoiceResultUI();
+resetKangoSleepTimer();
+</script>
+<script>
+/* ===== LIVE VOICE TO TEXT, MORSE AND MUSIC ===== */
+
+(function () {
+
+    const voiceMorseMap = {
+        A: ".-", B: "-...", C: "-.-.", D: "-..",
+        E: ".", F: "..-.", G: "--.", H: "....",
+        I: "..", J: ".---", K: "-.-", L: ".-..",
+        M: "--", N: "-.", O: "---", P: ".--.",
+        Q: "--.-", R: ".-.", S: "...", T: "-",
+        U: "..-", V: "...-", W: ".--", X: "-..-",
+        Y: "-.--", Z: "--..",
+
+        0: "-----", 1: ".----", 2: "..---",
+        3: "...--", 4: "....-", 5: ".....",
+        6: "-....", 7: "--...", 8: "---..",
+        9: "----.",
+
+        ".": ".-.-.-",
+        ",": "--..--",
+        "?": "..--..",
+        "!": "-.-.--"
+    };
+
+    let speechRecognition = null;
+    let finalVoiceTranscript = "";
+    let morseAudioContext = null;
+    let activeMorseOscillators = [];
+
+    const BrowserSpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    /* ===== CREATE CONVERSION UI ===== */
+
+    function createVoiceConversionUI() {
+        const box = document.querySelector(
+            "#liveVoicePanel .morse-popup-box"
+        );
+
+        if (!box) return;
+
+        if (document.getElementById("voiceConversionArea")) {
+            return;
+        }
+
+        const area = document.createElement("div");
+        area.id = "voiceConversionArea";
+
+        area.style.cssText =
+            "width:92%;margin:16px auto;padding:14px;" +
+            "border:1px solid rgba(100,220,100,.45);" +
+            "border-radius:15px;background:rgba(0,0,0,.25);";
+
+        area.innerHTML = `
+            <label style="display:block;margin-bottom:6px;">
+                🎙️ Recognition Language
+            </label>
+
+            <select id="voiceLanguage"
+                    style="width:100%;padding:8px;
+                           border-radius:10px;margin-bottom:12px;">
+                <option value="en-IN">English – India</option>
+                <option value="gu-IN">Gujarati – India</option>
+                <option value="hi-IN">Hindi – India</option>
+            </select>
+
+            <label style="display:block;margin-bottom:6px;">
+                📝 Recognized Text
+            </label>
+
+            <textarea id="voiceTranscriptResult"
+                      readonly
+                      placeholder="Your recognized voice will appear here..."
+                      style="width:96%;min-height:65px;
+                             padding:8px;border-radius:10px;
+                             resize:vertical;"></textarea>
+
+            <label style="display:block;margin:12px 0 6px;">
+                •— Morse Result
+            </label>
+
+            <textarea id="voiceMorseResult"
+                      readonly
+                      placeholder="Morse code will appear here..."
+                      style="width:96%;min-height:70px;
+                             padding:8px;border-radius:10px;
+                             resize:vertical;"></textarea>
+
+            <div style="display:flex;gap:8px;
+                        justify-content:center;
+                        flex-wrap:wrap;margin-top:12px;">
+
+                <button onclick="convertVoiceTextToMorse()">
+                    •— Convert to Morse
+                </button>
+
+                <button onclick="playVoiceMorseMusic()">
+                    ▶ Play Morse Music
+                </button>
+
+                <button onclick="stopVoiceMorseMusic()">
+                    ⏹ Stop Music
+                </button>
+
+                <button onclick="downloadVoiceMorse()">
+                    ⬇ Download Morse
+                </button>
+            </div>
+
+            <div id="voiceConversionMessage"
+                 style="text-align:center;margin-top:12px;">
+                Start recording and speak in English 🎧
+            </div>
+        `;
+
+        box.appendChild(area);
+    }
+
+
+    /* ===== SPEECH RECOGNITION ===== */
+
+    function beginSpeechRecognition() {
+        createVoiceConversionUI();
+
+        const message = document.getElementById(
+            "voiceConversionMessage"
+        );
+
+        const language = document.getElementById(
+            "voiceLanguage"
+        );
+
+        const transcriptBox = document.getElementById(
+            "voiceTranscriptResult"
+        );
+
+        if (!BrowserSpeechRecognition) {
+            if (message) {
+                message.textContent =
+                    "Speech recognition is not supported in this browser.";
+            }
+            return;
+        }
+
+        finalVoiceTranscript = "";
+
+        if (transcriptBox) {
+            transcriptBox.value = "";
+        }
+
+        speechRecognition =
+            new BrowserSpeechRecognition();
+
+        speechRecognition.lang =
+            language ? language.value : "en-IN";
+
+        speechRecognition.continuous = true;
+        speechRecognition.interimResults = true;
+
+        speechRecognition.onstart = function () {
+            if (message) {
+                message.textContent =
+                    "🔴 Listening and recognizing your voice...";
+            }
+        };
+
+        speechRecognition.onresult = function (event) {
+            let temporaryTranscript = "";
+
+            for (
+                let i = event.resultIndex;
+                i < event.results.length;
+                i++
+            ) {
+                const words =
+                    event.results[i][0].transcript;
+
+                if (event.results[i].isFinal) {
+                    finalVoiceTranscript += words + " ";
+                } else {
+                    temporaryTranscript += words;
+                }
+            }
+
+            if (transcriptBox) {
+                transcriptBox.value =
+                    finalVoiceTranscript +
+                    temporaryTranscript;
+            }
+        };
+
+        speechRecognition.onerror = function (event) {
+            if (message) {
+                message.textContent =
+                    "Recognition error: " + event.error;
+            }
+        };
+
+        try {
+            speechRecognition.start();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function endSpeechRecognition() {
+        if (speechRecognition) {
+            try {
+                speechRecognition.stop();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        setTimeout(function () {
+            convertVoiceTextToMorse();
+        }, 700);
+    }
+
+
+    /* ===== CONNECT WITH RECORDING BUTTONS ===== */
+
+    const originalStartVoiceRecording =
+        window.startVoiceRecording;
+
+    const originalStopVoiceRecording =
+        window.stopVoiceRecording;
+
+    window.startVoiceRecording = async function () {
+        createVoiceConversionUI();
+
+        if (originalStartVoiceRecording) {
+            await originalStartVoiceRecording();
+        }
+
+        beginSpeechRecognition();
+    };
+
+    window.stopVoiceRecording = function () {
+        endSpeechRecognition();
+
+        if (originalStopVoiceRecording) {
+            originalStopVoiceRecording();
+        }
+    };
+
+
+    /* ===== TEXT TO MORSE ===== */
+
+    window.convertVoiceTextToMorse = function () {
+        const transcriptBox = document.getElementById(
+            "voiceTranscriptResult"
+        );
+
+        const morseBox = document.getElementById(
+            "voiceMorseResult"
+        );
+
+        const message = document.getElementById(
+            "voiceConversionMessage"
+        );
+
+        const text = transcriptBox
+            ? transcriptBox.value.trim().toUpperCase()
+            : "";
+
+        if (!text) {
+            if (message) {
+                message.textContent =
+                    "Please record some voice first 🎙️";
+            }
+            return;
+        }
+
+        const words = text.split(/\s+/);
+
+        const morse = words.map(function (word) {
+            return word
+                .split("")
+                .map(function (letter) {
+                    return voiceMorseMap[letter] || "";
+                })
+                .filter(Boolean)
+                .join(" ");
+        }).join(" / ");
+
+        if (morseBox) {
+            morseBox.value = morse;
+        }
+
+        if (message) {
+            if (morse) {
+                message.textContent =
+                    "✅ Voice converted to Morse";
+            } else {
+                message.textContent =
+                    "Standard Morse currently supports English letters.";
+            }
+        }
+
+        if (typeof kangoHappyAction === "function") {
+            kangoHappyAction();
+        }
+    };
+
+
+    /* ===== MORSE TO MUSIC ===== */
+
+    window.playVoiceMorseMusic = function () {
+        const morseBox = document.getElementById(
+            "voiceMorseResult"
+        );
+
+        const message = document.getElementById(
+            "voiceConversionMessage"
+        );
+
+        const morse = morseBox
+            ? morseBox.value.trim()
+            : "";
+
+        if (!morse) {
+            convertVoiceTextToMorse();
+        }
+
+        const updatedMorse = morseBox
+            ? morseBox.value.trim()
+            : "";
+
+        if (!updatedMorse) return;
+
+        stopVoiceMorseMusic();
+
+        morseAudioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+        let startTime =
+            morseAudioContext.currentTime + 0.1;
+
+        const dotDuration = 0.12;
+        const dashDuration = 0.36;
+
+        const musicalNotes = [
+            261.63,
+            329.63,
+            392.00,
+            523.25
+        ];
+
+        let noteIndex = 0;
+
+        updatedMorse.split("").forEach(function (symbol) {
+            if (symbol === "." || symbol === "-") {
+                const duration =
+                    symbol === "."
+                        ? dotDuration
+                        : dashDuration;
+
+                const oscillator =
+                    morseAudioContext.createOscillator();
+
+                const gain =
+                    morseAudioContext.createGain();
+
+                oscillator.type = "sine";
+
+                oscillator.frequency.value =
+                    musicalNotes[
+                        noteIndex % musicalNotes.length
+                    ];
+
+                gain.gain.setValueAtTime(
+                    0.18,
+                    startTime
+                );
+
+                gain.gain.exponentialRampToValueAtTime(
+                    0.01,
+                    startTime + duration
+                );
+
+                oscillator.connect(gain);
+                gain.connect(
+                    morseAudioContext.destination
+                );
+
+                oscillator.start(startTime);
+                oscillator.stop(
+                    startTime + duration
+                );
+
+                activeMorseOscillators.push(
+                    oscillator
+                );
+
+                startTime += duration + 0.10;
+                noteIndex++;
+            }
+
+            if (symbol === " ") {
+                startTime += 0.12;
+            }
+
+            if (symbol === "/") {
+                startTime += 0.35;
+            }
+        });
+
+        if (message) {
+            message.textContent =
+                "🎶 Playing your Morse melody...";
+        }
+
+        if (typeof kangoDancingAction === "function") {
+            kangoDancingAction();
+        }
+
+        const playingTime =
+            Math.max(
+                500,
+                (startTime -
+                 morseAudioContext.currentTime) * 1000
+            );
+
+        setTimeout(function () {
+            if (message) {
+                message.textContent =
+                    "✅ Morse Music completed";
+            }
+
+            if (
+                typeof kangoReadyAction === "function"
+            ) {
+                kangoReadyAction();
+            }
+        }, playingTime);
+    };
+
+
+    /* ===== STOP MORSE MUSIC ===== */
+
+    window.stopVoiceMorseMusic = function () {
+        activeMorseOscillators.forEach(
+            function (oscillator) {
+                try {
+                    oscillator.stop();
+                } catch (error) {}
+            }
+        );
+
+        activeMorseOscillators = [];
+
+        if (morseAudioContext) {
+            try {
+                morseAudioContext.close();
+            } catch (error) {}
+
+            morseAudioContext = null;
+        }
+
+        if (typeof kangoReadyAction === "function") {
+            kangoReadyAction();
+        }
+    };
+
+
+    /* ===== DOWNLOAD MORSE ===== */
+
+    window.downloadVoiceMorse = function () {
+        const morseBox = document.getElementById(
+            "voiceMorseResult"
+        );
+
+        const transcriptBox = document.getElementById(
+            "voiceTranscriptResult"
+        );
+
+        if (!morseBox || !morseBox.value.trim()) {
+            convertVoiceTextToMorse();
+        }
+
+        if (!morseBox || !morseBox.value.trim()) {
+            return;
+        }
+
+        const fileContent =
+            "MORSICA Voice Conversion\n\n" +
+            "Text:\n" +
+            transcriptBox.value +
+            "\n\nMorse:\n" +
+            morseBox.value;
+
+        const fileBlob = new Blob(
+            [fileContent],
+            { type: "text/plain" }
+        );
+
+        const fileUrl =
+            URL.createObjectURL(fileBlob);
+
+        const downloadLink =
+            document.createElement("a");
+
+        downloadLink.href = fileUrl;
+        downloadLink.download =
+            "morsica-voice-morse.txt";
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
+
+        URL.revokeObjectURL(fileUrl);
+
+        if (
+            typeof kangoDownloadingAction === "function"
+        ) {
+            kangoDownloadingAction();
+        }
+    };
+
+
+    createVoiceConversionUI();
+
+})();
+</script>
+<style>
+/* ===== LIVE VOICE POPUP SCREEN FIX ===== */
+
+#liveVoicePanel {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 18px 0 35px !important;
+    box-sizing: border-box !important;
+}
+
+#liveVoicePanel .morse-popup-box {
+    position: relative !important;
+    width: min(92vw, 760px) !important;
+    max-width: 760px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 auto !important;
+    padding: 25px 18px 35px !important;
+    box-sizing: border-box !important;
+}
+
+#liveVoicePanel .popup-close {
+    position: fixed !important;
+    top: 18px !important;
+    right: 24px !important;
+    z-index: 999999 !important;
+
+    width: 45px !important;
+    height: 45px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+    border: 2px solid #a855f7 !important;
+    background: #111827 !important;
+    color: white !important;
+    font-size: 25px !important;
+    cursor: pointer !important;
+}
+
+#liveVoicePanel h2 {
+    margin-top: 15px !important;
+    padding: 0 50px !important;
+    text-align: center !important;
+}
+
+#liveVoicePanel audio {
+    max-width: 100% !important;
+}
+
+#voiceConversionArea {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+}
+</style>
+
+<script>
+/* Always open Live Voice popup from the top */
+
+const previousOpenLiveVoicePanel =
+    window.openLiveVoicePanel;
+
+window.openLiveVoicePanel = function () {
+    if (previousOpenLiveVoicePanel) {
+        previousOpenLiveVoicePanel();
+    }
+
+    const panel =
+        document.getElementById("liveVoicePanel");
+
+    const box = panel
+        ? panel.querySelector(".morse-popup-box")
+        : null;
+
+    if (panel) {
+        panel.scrollTop = 0;
+    }
+
+    if (box) {
+        box.scrollTop = 0;
+    }
+
+    window.scrollTo(0, 0);
+};
+</script>
+<!-- ===== COMPLETE NATURE SOUND SYSTEM ===== -->
+
+<style>
+#natureSoundControls {
+    margin-top: 18px;
+    padding: 15px;
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    border-radius: 16px;
+    text-align: center;
+    background: rgba(10, 15, 35, 0.65);
+}
+
+#natureSoundControls button {
+    margin: 5px;
+    padding: 9px 14px;
+    border: 1px solid #65ff7a;
+    border-radius: 10px;
+    background: #172033;
+    color: white;
+    cursor: pointer;
+}
+
+#natureSoundControls button:hover {
+    background: #39d353;
+    color: #07130a;
+}
+
+#natureMorseResult {
+    width: 92%;
+    min-height: 60px;
+    margin: 12px auto;
+    padding: 10px;
+    display: block;
+    resize: vertical;
+    box-sizing: border-box;
+    border: 1px solid #a855f7;
+    border-radius: 10px;
+    background: #101827;
+    color: white;
+}
+
+.nature-selected {
+    background: #39d353 !important;
+    color: #061108 !important;
+    box-shadow: 0 0 12px #39d353;
+}
+</style>
+
+<script>
+(function () {
+    let natureAudioContext = null;
+    let natureMasterGain = null;
+    let natureNodes = [];
+    let natureTimers = [];
+    let selectedNatureSound = "forest";
+
+    const soundNames = {
+        forest: "Forest",
+        rain: "Rain",
+        ocean: "Ocean Waves",
+        birds: "Birds",
+        wind: "Wind",
+        thunder: "Thunder"
+    };
+
+    const soundMessages = {
+        forest: "🌲 Kango is listening to Forest sounds...",
+        rain: "🌧️ Kango is listening to Rain...",
+        ocean: "🌊 Kango is listening to Ocean Waves...",
+        birds: "🐦 Kango is listening to Birds...",
+        wind: "💨 Kango is listening to Wind...",
+        thunder: "⛈️ Kango is listening to Thunder..."
+    };
+
+    const morseMap = {
+        A: ".-", B: "-...", C: "-.-.", D: "-..",
+        E: ".", F: "..-.", G: "--.", H: "....",
+        I: "..", J: ".---", K: "-.-", L: ".-..",
+        M: "--", N: "-.", O: "---", P: ".--.",
+        Q: "--.-", R: ".-.", S: "...", T: "-",
+        U: "..-", V: "...-", W: ".--", X: "-..-",
+        Y: "-.--", Z: "--..",
+        0: "-----", 1: ".----", 2: "..---",
+        3: "...--", 4: "....-", 5: ".....",
+        6: "-....", 7: "--...", 8: "---..", 9: "----."
+    };
+
+    function getAudioContext() {
+        if (!natureAudioContext) {
+            natureAudioContext = new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+        }
+
+        if (natureAudioContext.state === "suspended") {
+            natureAudioContext.resume();
+        }
+
+        return natureAudioContext;
+    }
+
+    function createMasterVolume(volume) {
+        const context = getAudioContext();
+
+        natureMasterGain = context.createGain();
+        natureMasterGain.gain.value = volume;
+        natureMasterGain.connect(context.destination);
+
+        natureNodes.push(natureMasterGain);
+        return natureMasterGain;
+    }
+
+    function createNoise(durationSeconds, volume, filterType, frequency) {
+        const context = getAudioContext();
+        const length = context.sampleRate * durationSeconds;
+        const buffer = context.createBuffer(
+            1,
+            length,
+            context.sampleRate
+        );
+
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < length; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+
+        const source = context.createBufferSource();
+        const filter = context.createBiquadFilter();
+        const gain = context.createGain();
+
+        source.buffer = buffer;
+        source.loop = true;
+
+        filter.type = filterType;
+        filter.frequency.value = frequency;
+        gain.gain.value = volume;
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(natureMasterGain);
+
+        source.start();
+
+        natureNodes.push(source, filter, gain);
+        return { source, filter, gain };
+    }
+
+    function playBirdChirp() {
+        if (!natureMasterGain) return;
+
+        const context = getAudioContext();
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const now = context.currentTime;
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(
+            1200 + Math.random() * 700,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            2200 + Math.random() * 600,
+            now + 0.18
+        );
+
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.16, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.25
+        );
+
+        oscillator.connect(gain);
+        gain.connect(natureMasterGain);
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.27);
+    }
+
+    function startBirds() {
+        playBirdChirp();
+
+        const timer = setInterval(function () {
+            playBirdChirp();
+
+            if (Math.random() > 0.55) {
+                setTimeout(playBirdChirp, 180);
+            }
+        }, 900);
+
+        natureTimers.push(timer);
+    }
+
+    function startRain() {
+        createNoise(2, 0.42, "highpass", 900);
+        createNoise(2, 0.13, "lowpass", 600);
+    }
+
+    function startWind() {
+        const wind = createNoise(3, 0.25, "lowpass", 750);
+        const context = getAudioContext();
+        const lfo = context.createOscillator();
+        const lfoGain = context.createGain();
+
+        lfo.frequency.value = 0.18;
+        lfoGain.gain.value = 0.12;
+
+        lfo.connect(lfoGain);
+        lfoGain.connect(wind.gain.gain);
+        lfo.start();
+
+        natureNodes.push(lfo, lfoGain);
+    }
+
+    function startOcean() {
+        const ocean = createNoise(4, 0.18, "lowpass", 550);
+        const context = getAudioContext();
+        const lfo = context.createOscillator();
+        const lfoGain = context.createGain();
+
+        lfo.type = "sine";
+        lfo.frequency.value = 0.11;
+        lfoGain.gain.value = 0.16;
+
+        lfo.connect(lfoGain);
+        lfoGain.connect(ocean.gain.gain);
+        lfo.start();
+
+        natureNodes.push(lfo, lfoGain);
+    }
+
+    function playThunderStrike() {
+    if (!natureMasterGain) return;
+
+    const context = getAudioContext();
+    const now = context.currentTime;
+
+    /* Deep thunder rumble */
+    const oscillator = context.createOscillator();
+    const oscillatorGain = context.createGain();
+    const lowFilter = context.createBiquadFilter();
+
+    oscillator.type = "sawtooth";
+    oscillator.frequency.setValueAtTime(95, now);
+    oscillator.frequency.exponentialRampToValueAtTime(
+        24,
+        now + 3.8
+    );
+
+    lowFilter.type = "lowpass";
+    lowFilter.frequency.value = 180;
+
+    oscillatorGain.gain.setValueAtTime(0.001, now);
+    oscillatorGain.gain.linearRampToValueAtTime(
+        0.55,
+        now + 0.08
+    );
+    oscillatorGain.gain.exponentialRampToValueAtTime(
+        0.001,
+        now + 4
+    );
+
+    oscillator.connect(lowFilter);
+    lowFilter.connect(oscillatorGain);
+    oscillatorGain.connect(natureMasterGain);
+
+    oscillator.start(now);
+    oscillator.stop(now + 4.1);
+
+    /* Thunder crack and rolling sound */
+    const noiseLength = context.sampleRate * 4;
+    const noiseBuffer = context.createBuffer(
+        1,
+        noiseLength,
+        context.sampleRate
+    );
+
+    const noiseData = noiseBuffer.getChannelData(0);
+
+    for (let i = 0; i < noiseLength; i++) {
+        const fade = 1 - i / noiseLength;
+        noiseData[i] =
+            (Math.random() * 2 - 1) *
+            fade *
+            (0.6 + Math.random() * 0.4);
+    }
+
+    const noiseSource = context.createBufferSource();
+    const noiseFilter = context.createBiquadFilter();
+    const noiseGain = context.createGain();
+
+    noiseSource.buffer = noiseBuffer;
+
+    noiseFilter.type = "lowpass";
+    noiseFilter.frequency.setValueAtTime(700, now);
+    noiseFilter.frequency.exponentialRampToValueAtTime(
+        120,
+        now + 3.8
+    );
+
+    noiseGain.gain.setValueAtTime(0.001, now);
+    noiseGain.gain.linearRampToValueAtTime(
+        0.75,
+        now + 0.025
+    );
+    noiseGain.gain.exponentialRampToValueAtTime(
+        0.001,
+        now + 3.9
+    );
+
+    noiseSource.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(natureMasterGain);
+
+    noiseSource.start(now);
+    noiseSource.stop(now + 4);
+
+    natureNodes.push(
+        oscillator,
+        oscillatorGain,
+        lowFilter,
+        noiseSource,
+        noiseFilter,
+        noiseGain
+    );
+}
+
+function startThunder() {
+    /* Light rain behind thunder */
+    createNoise(3, 0.07, "lowpass", 450);
+
+    /* First thunder after a short delay */
+    const firstThunder = setTimeout(function () {
+        playThunderStrike();
+    }, 350);
+
+    /* Repeat thunder at natural intervals */
+    const thunderTimer = setInterval(function () {
+        playThunderStrike();
+    }, 7000);
+
+    natureTimers.push(firstThunder, thunderTimer);
+}
+    function startForest() {
+        createNoise(3, 0.09, "lowpass", 650);
+        startBirds();
+    }
+
+    window.stopNatureSound = function () {
+        natureTimers.forEach(function (timer) {
+            clearInterval(timer);
+            clearTimeout(timer);
+        });
+
+        natureTimers = [];
+
+        natureNodes.forEach(function (node) {
+            try {
+                if (node.stop) node.stop();
+            } catch (error) {}
+
+            try {
+                if (node.disconnect) node.disconnect();
+            } catch (error) {}
+        });
+
+        natureNodes = [];
+        natureMasterGain = null;
+
+        const message =
+            document.getElementById("natureSoundMessage");
+
+        if (message) {
+            message.textContent = "⏹️ Nature sound stopped";
+        }
+
+        if (typeof kangoReadyAction === "function") {
+            kangoReadyAction();
+        }
+    };
+
+    window.playSelectedNatureSound = function () {
+        window.stopNatureSound();
+
+        createMasterVolume(0.65);
+
+        if (selectedNatureSound === "forest") startForest();
+        if (selectedNatureSound === "rain") startRain();
+        if (selectedNatureSound === "ocean") startOcean();
+        if (selectedNatureSound === "birds") startBirds();
+        if (selectedNatureSound === "wind") startWind();
+        if (selectedNatureSound === "thunder") startThunder();
+
+        const message =
+            document.getElementById("natureSoundMessage");
+
+        if (message) {
+            message.textContent =
+                "▶️ Playing " +
+                soundNames[selectedNatureSound] +
+                " sound...";
+        }
+
+        if (typeof kangoListeningAction === "function") {
+            kangoListeningAction();
+        }
+    };
+
+    window.selectNatureSound = function (sound) {
+        selectedNatureSound = sound;
+
+        document.querySelectorAll(
+            "#natureSoundPanel button[onclick*='selectNatureSound']"
+        ).forEach(function (button) {
+            button.classList.remove("nature-selected");
+        });
+
+        const selectedButton = document.querySelector(
+            "#natureSoundPanel button[onclick*=\"'" +
+            sound +
+            "'\"]"
+        );
+
+        if (selectedButton) {
+            selectedButton.classList.add("nature-selected");
+        }
+
+        const message =
+            document.getElementById("natureSoundMessage");
+
+        if (message) {
+            message.textContent =
+                soundMessages[sound] ||
+                "Kango is ready to listen 🎧";
+        }
+
+        window.playSelectedNatureSound();
+    };
+
+    function textToMorse(text) {
+        return text
+            .toUpperCase()
+            .split("")
+            .map(function (character) {
+                if (character === " ") return "/";
+                return morseMap[character] || "";
+            })
+            .filter(Boolean)
+            .join(" ");
+    }
+
+    window.convertNatureToMorse = function () {
+        const name = soundNames[selectedNatureSound];
+        const morse = textToMorse(name);
+
+        const result =
+            document.getElementById("natureMorseResult");
+
+        if (result) {
+            result.value = morse;
+        }
+
+        const message =
+            document.getElementById("natureSoundMessage");
+
+        if (message) {
+            message.textContent =
+                "✅ " + name + " converted to Morse";
+        }
+
+        if (typeof kangoHappyAction === "function") {
+            kangoHappyAction();
+        }
+    };
+
+    window.playNatureMorseMusic = async function () {
+        window.stopNatureSound();
+
+        let result =
+            document.getElementById("natureMorseResult");
+
+        if (!result || !result.value.trim()) {
+            window.convertNatureToMorse();
+            result = document.getElementById(
+                "natureMorseResult"
+            );
+        }
+
+        const morse = result.value;
+        const context = getAudioContext();
+        const dotTime = 0.12;
+
+        if (typeof kangoDancingAction === "function") {
+            kangoDancingAction();
+        }
+
+        for (const symbol of morse) {
+            if (symbol === "." || symbol === "-") {
+                const duration =
+                    symbol === "." ? dotTime : dotTime * 3;
+
+                const oscillator =
+                    context.createOscillator();
+
+                const gain = context.createGain();
+                const now = context.currentTime;
+
+                oscillator.type = "sine";
+                oscillator.frequency.value =
+                    selectedNatureSound === "thunder"
+                        ? 220
+                        : selectedNatureSound === "birds"
+                        ? 880
+                        : 520;
+
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(
+                    0.001,
+                    now + duration
+                );
+
+                oscillator.connect(gain);
+                gain.connect(context.destination);
+
+                oscillator.start(now);
+                oscillator.stop(now + duration);
+
+                await new Promise(function (resolve) {
+                    setTimeout(
+                        resolve,
+                        duration * 1000 + 55
+                    );
+                });
+            } else {
+                await new Promise(function (resolve) {
+                    setTimeout(resolve, 90);
+                });
+            }
+        }
+
+        const message =
+            document.getElementById("natureSoundMessage");
+
+        if (message) {
+            message.textContent =
+                "🎵 Morse Music finished";
+        }
+
+        if (typeof kangoReadyAction === "function") {
+            kangoReadyAction();
+        }
+    };
+
+    function createNatureControls() {
+        const panel =
+            document.getElementById("natureSoundPanel");
+
+        if (!panel) return;
+
+        const box =
+            panel.querySelector(".morse-popup-box");
+
+        if (!box) return;
+
+        if (document.getElementById("natureSoundControls")) {
+            return;
+        }
+
+        const controls = document.createElement("div");
+        controls.id = "natureSoundControls";
+
+        controls.innerHTML = `
+            <h3>Nature Sound Controls</h3>
+
+            <button type="button"
+                onclick="playSelectedNatureSound()">
+                ▶ Play Sound
+            </button>
+
+            <button type="button"
+                onclick="stopNatureSound()">
+                ■ Stop Sound
+            </button>
+
+            <button type="button"
+                onclick="convertNatureToMorse()">
+                •— Convert to Morse
+            </button>
+
+            <button type="button"
+                onclick="playNatureMorseMusic()">
+                🎵 Play Morse Music
+            </button>
+
+            <textarea
+                id="natureMorseResult"
+                readonly
+                placeholder="Morse result will appear here...">
+            </textarea>
+        `;
+
+        box.appendChild(controls);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            createNatureControls
+        );
+    } else {
+        createNatureControls();
+    }
+})();
+</script>
+<!-- Tesseract OCR Library -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+<style>
+/* ===== PHOTO TO MORSE POPUP ===== */
+
+#photoMorsePanel {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    padding: 18px 0 35px !important;
+    box-sizing: border-box !important;
+}
+
+#photoMorsePanel .photo-morse-box {
+    position: relative;
+    width: min(92vw, 720px);
+    margin: auto;
+    padding: 25px 20px 35px;
+    box-sizing: border-box;
+    border: 2px solid #facc15;
+    border-radius: 24px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.98),
+            rgba(45, 20, 70, 0.98)
+        );
+    color: white;
+    box-shadow:
+        0 0 25px rgba(250, 204, 21, 0.35),
+        0 0 45px rgba(168, 85, 247, 0.25);
+}
+
+#photoMorsePanel .photo-close {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 999999;
+    width: 45px;
+    height: 45px;
+    border: 2px solid #facc15;
+    border-radius: 50%;
+    background: #111827;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#photoMorsePanel h2,
+#photoMorsePanel p {
+    text-align: center;
+}
+
+.photo-upload-area {
+    margin: 18px auto;
+    padding: 20px;
+    border: 2px dashed #facc15;
+    border-radius: 16px;
+    text-align: center;
+    background: rgba(250, 204, 21, 0.06);
+}
+
+.photo-upload-button,
+.photo-action-button {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 15px;
+    border: 1px solid #facc15;
+    border-radius: 10px;
+    background: #ca8a04;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.photo-action-button:hover,
+.photo-upload-button:hover {
+    background: #facc15;
+    color: #17120a;
+}
+
+#photoPreview {
+    display: none;
+    max-width: 90%;
+    max-height: 260px;
+    margin: 15px auto;
+    border: 2px solid #a855f7;
+    border-radius: 14px;
+    object-fit: contain;
+}
+
+.photo-field-title {
+    margin: 15px 0 7px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#photoRecognizedText,
+#photoMorseResult {
+    display: block;
+    width: 95%;
+    min-height: 90px;
+    margin: auto;
+    padding: 12px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid #a855f7;
+    border-radius: 12px;
+    background: #101827;
+    color: white;
+}
+
+#photoOcrStatus {
+    min-height: 28px;
+    margin: 12px 0;
+    text-align: center;
+    color: #bef264;
+    font-weight: bold;
+}
+
+.photo-button-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+    #photoMorsePanel .photo-morse-box {
+        width: 96vw;
+        padding: 20px 10px 30px;
+    }
+
+    #photoMorsePanel h2 {
+        padding: 0 45px;
+        font-size: 23px;
+    }
+}
+</style>
+
+<!-- ===== PHOTO TO MORSE PANEL ===== -->
+
+<div id="photoMorsePanel" class="morse-popup">
+    <div class="photo-morse-box">
+
+        <button
+            type="button"
+            class="photo-close"
+            onclick="closePhotoMorsePanel()">
+            ×
+        </button>
+
+        <h2>📷 Photo to Morse</h2>
+
+        <p>
+            Select a clear photo containing English text
+        </p>
+
+        <div class="photo-upload-area">
+
+            <input
+                id="photoMorseInput"
+                type="file"
+                accept="image/*"
+                style="display:none"
+                onchange="previewPhotoForMorse(event)">
+
+            <label
+                for="photoMorseInput"
+                class="photo-upload-button">
+                📁 Choose Photo
+            </label>
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="clearPhotoMorse()">
+                🗑 Clear
+            </button>
+
+            <img
+                id="photoPreview"
+                alt="Selected photo preview">
+
+        </div>
+
+        <div id="photoOcrStatus">
+            Choose a photo to begin
+        </div>
+
+        <div class="photo-button-row">
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="extractPhotoText()">
+                🔍 Extract Text
+            </button>
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="convertPhotoTextToMorse()">
+                •— Convert to Morse
+            </button>
+
+        </div>
+
+        <div class="photo-field-title">
+            📄 Recognized Text
+        </div>
+
+        <textarea
+            id="photoRecognizedText"
+            placeholder="Recognized English text will appear here...">
+        </textarea>
+
+        <div class="photo-field-title">
+            •— Morse Result
+        </div>
+
+        <textarea
+            id="photoMorseResult"
+            readonly
+            placeholder="Morse result will appear here...">
+        </textarea>
+
+        <div class="photo-button-row">
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="playPhotoMorse()">
+                ▶ Play Morse
+            </button>
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="stopPhotoMorse()">
+                ■ Stop
+            </button>
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="copyPhotoMorse()">
+                📋 Copy
+            </button>
+
+            <button
+                type="button"
+                class="photo-action-button"
+                onclick="downloadPhotoMorse()">
+                ⬇ Download
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* ===== COMPLETE PHOTO TO MORSE FUNCTIONS ===== */
+
+let selectedPhotoFile = null;
+let selectedPhotoUrl = null;
+let photoMorseStopped = false;
+let photoAudioContext = null;
+
+const photoMorseMap = {
+    A: ".-",
+    B: "-...",
+    C: "-.-.",
+    D: "-..",
+    E: ".",
+    F: "..-.",
+    G: "--.",
+    H: "....",
+    I: "..",
+    J: ".---",
+    K: "-.-",
+    L: ".-..",
+    M: "--",
+    N: "-.",
+    O: "---",
+    P: ".--.",
+    Q: "--.-",
+    R: ".-.",
+    S: "...",
+    T: "-",
+    U: "..-",
+    V: "...-",
+    W: ".--",
+    X: "-..-",
+    Y: "-.--",
+    Z: "--..",
+
+    0: "-----",
+    1: ".----",
+    2: "..---",
+    3: "...--",
+    4: "....-",
+    5: ".....",
+    6: "-....",
+    7: "--...",
+    8: "---..",
+    9: "----.",
+
+    ".": ".-.-.-",
+    ",": "--..--",
+    "?": "..--..",
+    "!": "-.-.--",
+    "/": "-..-.",
+    "-": "-....-",
+    ":": "---...",
+    "'": ".----."
+};
+
+window.openPhotoMorsePanel = function () {
+    const panel =
+        document.getElementById("photoMorsePanel");
+
+    if (!panel) return;
+
+    panel.classList.add("show");
+    panel.scrollTop = 0;
+
+    document.body.style.overflow = "hidden";
+
+    if (typeof kangoThinkingAction === "function") {
+        kangoThinkingAction();
+    }
+};
+
+window.closePhotoMorsePanel = function () {
+    stopPhotoMorse();
+
+    const panel =
+        document.getElementById("photoMorsePanel");
+
+    if (panel) {
+        panel.classList.remove("show");
+    }
+
+    document.body.style.overflow = "";
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+
+window.previewPhotoForMorse = function (event) {
+    const file =
+        event.target.files &&
+        event.target.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please choose an image file.");
+        return;
+    }
+
+    selectedPhotoFile = file;
+
+    if (selectedPhotoUrl) {
+        URL.revokeObjectURL(selectedPhotoUrl);
+    }
+
+    selectedPhotoUrl = URL.createObjectURL(file);
+
+    const preview =
+        document.getElementById("photoPreview");
+
+    if (preview) {
+        preview.src = selectedPhotoUrl;
+        preview.style.display = "block";
+    }
+
+    document.getElementById(
+        "photoOcrStatus"
+    ).textContent =
+        "✅ Photo selected — press Extract Text";
+
+    document.getElementById(
+        "photoRecognizedText"
+    ).value = "";
+
+    document.getElementById(
+        "photoMorseResult"
+    ).value = "";
+
+    if (typeof kangoThinkingAction === "function") {
+        kangoThinkingAction();
+    }
+};
+
+window.extractPhotoText = async function () {
+    if (!selectedPhotoFile) {
+        alert("Please choose a photo first.");
+        return;
+    }
+
+    if (typeof Tesseract === "undefined") {
+        alert(
+            "OCR library did not load. Check your internet connection and refresh the page."
+        );
+        return;
+    }
+
+    const status =
+        document.getElementById("photoOcrStatus");
+
+    const recognizedText =
+        document.getElementById(
+            "photoRecognizedText"
+        );
+
+    try {
+        status.textContent =
+            "⏳ Reading text from photo... Please wait.";
+
+        recognizedText.value = "";
+
+        if (typeof kangoThinkingAction === "function") {
+            kangoThinkingAction();
+        }
+
+        const worker =
+            await Tesseract.createWorker("eng");
+
+        const result =
+            await worker.recognize(selectedPhotoFile);
+
+        await worker.terminate();
+
+        const extractedText =
+            result.data.text.trim();
+
+        if (!extractedText) {
+            status.textContent =
+                "⚠️ No clear text was found.";
+
+            alert(
+                "No clear English text was found. Try a brighter and clearer photo."
+            );
+
+            return;
+        }
+
+        recognizedText.value = extractedText;
+
+        status.textContent =
+            "✅ Text extracted successfully";
+
+        convertPhotoTextToMorse();
+
+        if (typeof kangoHappyAction === "function") {
+            kangoHappyAction();
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        status.textContent =
+            "❌ Could not read this photo";
+
+        alert(
+            "Photo could not be processed. Check the internet and try a clearer photo."
+        );
+
+        if (typeof kangoReadyAction === "function") {
+            kangoReadyAction();
+        }
+    }
+};
+
+function photoTextToMorse(text) {
+    return text
+        .toUpperCase()
+        .split("")
+        .map(function (character) {
+            if (character === " ") {
+                return "/";
+            }
+
+            if (
+                character === "\n" ||
+                character === "\t"
+            ) {
+                return "/";
+            }
+
+            return photoMorseMap[character] || "";
+        })
+        .filter(function (value) {
+            return value !== "";
+        })
+        .join(" ");
+}
+
+window.convertPhotoTextToMorse = function () {
+    const text =
+        document.getElementById(
+            "photoRecognizedText"
+        ).value.trim();
+
+    if (!text) {
+        alert(
+            "First extract text from a photo or enter English text."
+        );
+        return;
+    }
+
+    const morse = photoTextToMorse(text);
+
+    document.getElementById(
+        "photoMorseResult"
+    ).value = morse;
+
+    document.getElementById(
+        "photoOcrStatus"
+    ).textContent =
+        "✅ Text converted to Morse";
+
+    if (typeof kangoHappyAction === "function") {
+        kangoHappyAction();
+    }
+};
+
+function waitForPhotoMorse(milliseconds) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, milliseconds);
+    });
+}
+
+function playPhotoMorseTone(duration) {
+    if (
+        !photoAudioContext ||
+        photoMorseStopped
+    ) {
+        return;
+    }
+
+    const oscillator =
+        photoAudioContext.createOscillator();
+
+    const gain =
+        photoAudioContext.createGain();
+
+    const now =
+        photoAudioContext.currentTime;
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = 650;
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        now + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(photoAudioContext.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + duration);
+}
+
+window.playPhotoMorse = async function () {
+    let morse =
+        document.getElementById(
+            "photoMorseResult"
+        ).value.trim();
+
+    if (!morse) {
+        convertPhotoTextToMorse();
+
+        morse =
+            document.getElementById(
+                "photoMorseResult"
+            ).value.trim();
+    }
+
+    if (!morse) return;
+
+    photoMorseStopped = false;
+
+    if (!photoAudioContext) {
+        photoAudioContext = new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+    }
+
+    if (photoAudioContext.state === "suspended") {
+        await photoAudioContext.resume();
+    }
+
+    document.getElementById(
+        "photoOcrStatus"
+    ).textContent =
+        "🎵 Playing Photo Morse...";
+
+    if (typeof kangoDancingAction === "function") {
+        kangoDancingAction();
+    }
+
+    const dotTime = 120;
+
+    for (const symbol of morse) {
+        if (photoMorseStopped) break;
+
+        if (symbol === ".") {
+            playPhotoMorseTone(dotTime / 1000);
+            await waitForPhotoMorse(dotTime + 70);
+        }
+
+        else if (symbol === "-") {
+            playPhotoMorseTone(
+                (dotTime * 3) / 1000
+            );
+
+            await waitForPhotoMorse(
+                dotTime * 3 + 70
+            );
+        }
+
+        else if (symbol === " ") {
+            await waitForPhotoMorse(
+                dotTime * 2
+            );
+        }
+
+        else if (symbol === "/") {
+            await waitForPhotoMorse(
+                dotTime * 5
+            );
+        }
+    }
+
+    if (!photoMorseStopped) {
+        document.getElementById(
+            "photoOcrStatus"
+        ).textContent =
+            "✅ Morse playback completed";
+    }
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+
+window.stopPhotoMorse = function () {
+    photoMorseStopped = true;
+
+    const status =
+        document.getElementById("photoOcrStatus");
+
+    if (status) {
+        status.textContent =
+            "■ Morse playback stopped";
+    }
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+
+window.copyPhotoMorse = async function () {
+    const text =
+        document.getElementById(
+            "photoRecognizedText"
+        ).value.trim();
+
+    const morse =
+        document.getElementById(
+            "photoMorseResult"
+        ).value.trim();
+
+    if (!morse) {
+        alert("There is no Morse result to copy.");
+        return;
+    }
+
+    const copyData =
+        "Recognized Text:\n" +
+        text +
+        "\n\nMorse Result:\n" +
+        morse;
+
+    try {
+        await navigator.clipboard.writeText(
+            copyData
+        );
+
+        document.getElementById(
+            "photoOcrStatus"
+        ).textContent =
+            "📋 Text and Morse copied";
+
+    } catch (error) {
+        alert("Copy was not successful.");
+    }
+};
+
+window.downloadPhotoMorse = function () {
+    const text =
+        document.getElementById(
+            "photoRecognizedText"
+        ).value.trim();
+
+    const morse =
+        document.getElementById(
+            "photoMorseResult"
+        ).value.trim();
+
+    if (!morse) {
+        alert(
+            "There is no Morse result to download."
+        );
+        return;
+    }
+
+    const fileContent =
+        "MORSICA - Photo to Morse\n\n" +
+        "Recognized Text:\n" +
+        text +
+        "\n\nMorse Result:\n" +
+        morse;
+
+    const blob = new Blob(
+        [fileContent],
+        { type: "text/plain;charset=utf-8" }
+    );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+    link.download =
+        "MORSICA-Photo-to-Morse.txt";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(function () {
+        URL.revokeObjectURL(url);
+    }, 1000);
+
+    if (
+        typeof kangoDownloadingAction ===
+        "function"
+    ) {
+        kangoDownloadingAction();
+    }
+};
+
+window.clearPhotoMorse = function () {
+    stopPhotoMorse();
+
+    selectedPhotoFile = null;
+
+    const input =
+        document.getElementById(
+            "photoMorseInput"
+        );
+
+    const preview =
+        document.getElementById(
+            "photoPreview"
+        );
+
+    if (input) {
+        input.value = "";
+    }
+
+    if (preview) {
+        preview.removeAttribute("src");
+        preview.style.display = "none";
+    }
+
+    if (selectedPhotoUrl) {
+        URL.revokeObjectURL(selectedPhotoUrl);
+        selectedPhotoUrl = null;
+    }
+
+    document.getElementById(
+        "photoRecognizedText"
+    ).value = "";
+
+    document.getElementById(
+        "photoMorseResult"
+    ).value = "";
+
+    document.getElementById(
+        "photoOcrStatus"
+    ).textContent =
+        "Choose a photo to begin";
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+</script>
+<!-- ===== COMPLETE AI FORMULA LAB ===== -->
+
+<style>
+#formulaLabPanel {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    padding: 18px 0 35px !important;
+    box-sizing: border-box !important;
+}
+
+#formulaLabPanel .formula-lab-box {
+    position: relative;
+    width: min(92vw, 720px);
+    margin: auto;
+    padding: 25px 20px 35px;
+    box-sizing: border-box;
+    border: 2px solid #38bdf8;
+    border-radius: 24px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10, 20, 42, 0.98),
+            rgba(50, 20, 80, 0.98)
+        );
+    color: white;
+    box-shadow:
+        0 0 25px rgba(56, 189, 248, 0.35),
+        0 0 45px rgba(168, 85, 247, 0.25);
+}
+
+#formulaLabPanel .formula-close {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 999999;
+    width: 45px;
+    height: 45px;
+    border: 2px solid #38bdf8;
+    border-radius: 50%;
+    background: #111827;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#formulaLabPanel h2,
+#formulaLabPanel p {
+    text-align: center;
+}
+
+.formula-presets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    margin: 15px 0;
+}
+
+.formula-button {
+    padding: 9px 13px;
+    border: 1px solid #38bdf8;
+    border-radius: 10px;
+    background: #172033;
+    color: white;
+    cursor: pointer;
+}
+
+.formula-button:hover {
+    background: #38bdf8;
+    color: #07111c;
+}
+
+.formula-main-button {
+    background: linear-gradient(
+        90deg,
+        #22c55e,
+        #84cc16
+    );
+    color: #071108;
+    font-weight: bold;
+}
+
+.formula-section-title {
+    margin: 15px 0 7px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#formulaInput,
+#formulaReadableResult,
+#formulaMorseResult {
+    display: block;
+    width: 95%;
+    min-height: 65px;
+    margin: auto;
+    padding: 12px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid #38bdf8;
+    border-radius: 12px;
+    background: #101827;
+    color: white;
+}
+
+#formulaLabMessage {
+    min-height: 28px;
+    margin: 14px 0;
+    text-align: center;
+    color: #bef264;
+    font-weight: bold;
+}
+
+.formula-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+    #formulaLabPanel .formula-lab-box {
+        width: 96vw;
+        padding: 20px 10px 30px;
+    }
+
+    #formulaLabPanel h2 {
+        padding: 0 45px;
+        font-size: 23px;
+    }
+}
+</style>
+
+<div id="formulaLabPanel" class="morse-popup">
+    <div class="formula-lab-box">
+
+        <button
+            type="button"
+            class="formula-close"
+            onclick="closeFormulaLabPanel()">
+            ×
+        </button>
+
+        <h2>🧪🤖 AI Formula Lab</h2>
+
+        <p>
+            Convert Math, Science and Chemistry formulas
+            into Morse and Music
+        </p>
+
+        <div class="formula-section-title">
+            Select an example
+        </div>
+
+        <div class="formula-presets">
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="setFormulaExample('a² + b² = c²')">
+                📐 Pythagoras
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="setFormulaExample('E = mc²')">
+                ⚡ Energy
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="setFormulaExample('F = m × a')">
+                🚀 Force
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="setFormulaExample('H2O')">
+                💧 Water
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="setFormulaExample('CO2')">
+                🌿 Carbon Dioxide
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="setFormulaExample('NaCl')">
+                🧂 Salt
+            </button>
+
+        </div>
+
+        <div class="formula-section-title">
+            ✏️ Enter Formula
+        </div>
+
+        <textarea
+            id="formulaInput"
+            placeholder="Example: a² + b² = c²"></textarea>
+
+        <div class="formula-action-row">
+
+            <button
+                type="button"
+                class="formula-button formula-main-button"
+                onclick="convertFormulaLab()">
+                ✨ Convert Formula
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="clearFormulaLab()">
+                🗑 Clear
+            </button>
+
+        </div>
+
+        <div id="formulaLabMessage">
+            Kango is ready to analyse your formula 🤔
+        </div>
+
+        <div class="formula-section-title">
+            📖 Formula Reading
+        </div>
+
+        <textarea
+            id="formulaReadableResult"
+            readonly
+            placeholder="Readable formula will appear here..."></textarea>
+
+        <div class="formula-section-title">
+            •— Morse Result
+        </div>
+
+        <textarea
+            id="formulaMorseResult"
+            readonly
+            placeholder="Morse result will appear here..."></textarea>
+
+        <div class="formula-action-row">
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="playFormulaMusic()">
+                ▶ Play Formula Music
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="stopFormulaMusic()">
+                ■ Stop
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="copyFormulaResult()">
+                📋 Copy
+            </button>
+
+            <button
+                type="button"
+                class="formula-button"
+                onclick="downloadFormulaResult()">
+                ⬇ Download
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* ===== AI FORMULA LAB FUNCTIONS ===== */
+
+let formulaMusicStopped = false;
+let formulaAudioContext = null;
+
+const formulaMorseMap = {
+    A: ".-", B: "-...", C: "-.-.", D: "-..",
+    E: ".", F: "..-.", G: "--.", H: "....",
+    I: "..", J: ".---", K: "-.-", L: ".-..",
+    M: "--", N: "-.", O: "---", P: ".--.",
+    Q: "--.-", R: ".-.", S: "...", T: "-",
+    U: "..-", V: "...-", W: ".--", X: "-..-",
+    Y: "-.--", Z: "--..",
+
+    0: "-----", 1: ".----", 2: "..---",
+    3: "...--", 4: "....-", 5: ".....",
+    6: "-....", 7: "--...", 8: "---..",
+    9: "----."
+};
+
+window.openFormulaLabPanel = function () {
+    const panel =
+        document.getElementById("formulaLabPanel");
+
+    if (!panel) return;
+
+    panel.classList.add("show");
+    panel.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+
+    if (typeof kangoThinkingAction === "function") {
+        kangoThinkingAction();
+    }
+};
+
+window.closeFormulaLabPanel = function () {
+    stopFormulaMusic();
+
+    const panel =
+        document.getElementById("formulaLabPanel");
+
+    if (panel) {
+        panel.classList.remove("show");
+    }
+
+    document.body.style.overflow = "";
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+
+window.setFormulaExample = function (formula) {
+    document.getElementById(
+        "formulaInput"
+    ).value = formula;
+
+    document.getElementById(
+        "formulaLabMessage"
+    ).textContent =
+        "🧪 Formula selected — press Convert Formula";
+
+    convertFormulaLab();
+};
+
+function makeFormulaReadable(formula) {
+    return formula
+        .replace(/²/g, " squared ")
+        .replace(/³/g, " cubed ")
+        .replace(/√/g, " square root ")
+        .replace(/π/g, " pi ")
+        .replace(/×/g, " multiplied by ")
+        .replace(/\*/g, " multiplied by ")
+        .replace(/÷/g, " divided by ")
+        .replace(/\//g, " divided by ")
+        .replace(/\+/g, " plus ")
+        .replace(/−/g, " minus ")
+        .replace(/-/g, " minus ")
+        .replace(/=/g, " equals ")
+        .replace(/\(/g, " open bracket ")
+        .replace(/\)/g, " close bracket ")
+        .replace(/\^/g, " power ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function formulaTextToMorse(text) {
+    return text
+        .toUpperCase()
+        .split("")
+        .map(function (character) {
+            if (character === " ") return "/";
+            return formulaMorseMap[character] || "";
+        })
+        .filter(function (value) {
+            return value !== "";
+        })
+        .join(" ");
+}
+
+window.convertFormulaLab = function () {
+    const formula =
+        document.getElementById(
+            "formulaInput"
+        ).value.trim();
+
+    if (!formula) {
+        alert("Please enter a formula first.");
+        return;
+    }
+
+    const readable =
+        makeFormulaReadable(formula);
+
+    const morse =
+        formulaTextToMorse(readable);
+
+    document.getElementById(
+        "formulaReadableResult"
+    ).value = readable;
+
+    document.getElementById(
+        "formulaMorseResult"
+    ).value = morse;
+
+    document.getElementById(
+        "formulaLabMessage"
+    ).textContent =
+        "✅ Formula converted successfully";
+
+    if (typeof kangoHappyAction === "function") {
+        kangoHappyAction();
+    }
+};
+
+function formulaWait(milliseconds) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, milliseconds);
+    });
+}
+
+function playFormulaTone(duration, frequency) {
+    if (
+        !formulaAudioContext ||
+        formulaMusicStopped
+    ) {
+        return;
+    }
+
+    const oscillator =
+        formulaAudioContext.createOscillator();
+
+    const gain =
+        formulaAudioContext.createGain();
+
+    const now =
+        formulaAudioContext.currentTime;
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        now + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(formulaAudioContext.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + duration);
+}
+
+window.playFormulaMusic = async function () {
+    let morse =
+        document.getElementById(
+            "formulaMorseResult"
+        ).value.trim();
+
+    if (!morse) {
+        convertFormulaLab();
+
+        morse =
+            document.getElementById(
+                "formulaMorseResult"
+            ).value.trim();
+    }
+
+    if (!morse) return;
+
+    formulaMusicStopped = false;
+
+    if (!formulaAudioContext) {
+        formulaAudioContext = new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+    }
+
+    if (formulaAudioContext.state === "suspended") {
+        await formulaAudioContext.resume();
+    }
+
+    document.getElementById(
+        "formulaLabMessage"
+    ).textContent =
+        "🎵 Playing your Formula Music...";
+
+    if (typeof kangoDancingAction === "function") {
+        kangoDancingAction();
+    }
+
+    const dotTime = 120;
+    let noteNumber = 0;
+
+    const notes = [
+        392,
+        440,
+        494,
+        523,
+        587,
+        659
+    ];
+
+    for (const symbol of morse) {
+        if (formulaMusicStopped) break;
+
+        const frequency =
+            notes[noteNumber % notes.length];
+
+        if (symbol === ".") {
+            playFormulaTone(
+                dotTime / 1000,
+                frequency
+            );
+
+            noteNumber++;
+            await formulaWait(dotTime + 60);
+        }
+
+        else if (symbol === "-") {
+            playFormulaTone(
+                (dotTime * 3) / 1000,
+                frequency
+            );
+
+            noteNumber++;
+            await formulaWait(
+                dotTime * 3 + 60
+            );
+        }
+
+        else if (symbol === " ") {
+            await formulaWait(dotTime * 2);
+        }
+
+        else if (symbol === "/") {
+            await formulaWait(dotTime * 5);
+        }
+    }
+
+    if (!formulaMusicStopped) {
+        document.getElementById(
+            "formulaLabMessage"
+        ).textContent =
+            "✅ Formula Music completed";
+    }
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+
+window.stopFormulaMusic = function () {
+    formulaMusicStopped = true;
+
+    const message =
+        document.getElementById(
+            "formulaLabMessage"
+        );
+
+    if (message) {
+        message.textContent =
+            "■ Formula Music stopped";
+    }
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+
+window.copyFormulaResult = async function () {
+    const formula =
+        document.getElementById(
+            "formulaInput"
+        ).value.trim();
+
+    const readable =
+        document.getElementById(
+            "formulaReadableResult"
+        ).value.trim();
+
+    const morse =
+        document.getElementById(
+            "formulaMorseResult"
+        ).value.trim();
+
+    if (!morse) {
+        alert("Convert a formula first.");
+        return;
+    }
+
+    const copyText =
+        "Formula: " + formula +
+        "\n\nFormula Reading: " + readable +
+        "\n\nMorse Result:\n" + morse;
+
+    try {
+        await navigator.clipboard.writeText(
+            copyText
+        );
+
+        document.getElementById(
+            "formulaLabMessage"
+        ).textContent =
+            "📋 Formula and Morse copied";
+
+    } catch (error) {
+        alert("Copy was not successful.");
+    }
+};
+
+window.downloadFormulaResult = function () {
+    const formula =
+        document.getElementById(
+            "formulaInput"
+        ).value.trim();
+
+    const readable =
+        document.getElementById(
+            "formulaReadableResult"
+        ).value.trim();
+
+    const morse =
+        document.getElementById(
+            "formulaMorseResult"
+        ).value.trim();
+
+    if (!morse) {
+        alert("Convert a formula first.");
+        return;
+    }
+
+    const content =
+        "MORSICA - AI Formula Lab\n\n" +
+        "Formula:\n" + formula +
+        "\n\nFormula Reading:\n" + readable +
+        "\n\nMorse Result:\n" + morse;
+
+    const blob = new Blob(
+        [content],
+        { type: "text/plain;charset=utf-8" }
+    );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+    link.download =
+        "MORSICA-Formula-Morse.txt";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(function () {
+        URL.revokeObjectURL(url);
+    }, 1000);
+
+    if (
+        typeof kangoDownloadingAction ===
+        "function"
+    ) {
+        kangoDownloadingAction();
+    }
+};
+
+window.clearFormulaLab = function () {
+    stopFormulaMusic();
+
+    document.getElementById(
+        "formulaInput"
+    ).value = "";
+
+    document.getElementById(
+        "formulaReadableResult"
+    ).value = "";
+
+    document.getElementById(
+        "formulaMorseResult"
+    ).value = "";
+
+    document.getElementById(
+        "formulaLabMessage"
+    ).textContent =
+        "Kango is ready to analyse your formula 🤔";
+
+    if (typeof kangoReadyAction === "function") {
+        kangoReadyAction();
+    }
+};
+</script>
+<!-- MORSICA mobile and home-action fixes -->
+<style>
+  .quick { cursor:pointer; transition:transform .18s, border-color .18s, box-shadow .18s; }
+  .quick:active { transform:scale(.98); }
+  .quick:focus-visible { outline:2px solid #98ff00; outline-offset:3px; }
+  .card.search-hidden { display:none !important; }
+  #morsicaToast {
+    position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px);
+    z-index:1000001; max-width:calc(100vw - 32px); padding:12px 18px;
+    border:1px solid #7cff00; border-radius:14px; background:#08130d;
+    color:#fff; box-shadow:0 0 22px #58ff0055; opacity:0; pointer-events:none;
+    transition:.22s; text-align:center; font-weight:700;
+  }
+  #morsicaToast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  #homeListPanel .morse-popup-box { width:min(560px,94vw); max-height:86vh; overflow:auto; }
+  #homeListTitle { padding-right:42px; }
+  .home-list-item {
+    width:100%; margin:8px 0; padding:14px; border:1px solid #7040c9;
+    border-radius:14px; background:#0a0b18; color:#fff; cursor:pointer;
+    font-size:16px; text-align:left;
+  }
+  .home-list-item strong { color:#9cff00; display:block; margin-bottom:4px; }
+
+  @media (max-width:600px) {
+    html, body { max-width:100%; overflow-x:hidden; }
+    body { padding:8px; }
+    .app { width:100%; max-width:100%; }
+    .topbar { align-items:flex-start; gap:8px; }
+    .brand { gap:8px; min-width:0; }
+    .logo { width:70px; height:70px; }
+    .brand h1 { font-size:31px; letter-spacing:1px; }
+    .tagline { font-size:15px; }
+    .offline { flex:0 0 auto; padding:9px 10px; font-size:12px; text-align:center; }
+    .kango-icon { width:min(270px,82vw); height:auto; }
+    .kango-icon img { height:auto; }
+    .morse-popup { padding:8px; overflow-x:hidden; align-items:flex-start; }
+    #morseToMusicPanel .universal-converter-box {
+      width:calc(100vw - 16px) !important; max-width:100% !important;
+      margin:8px auto !important; padding:14px 10px 20px !important;
+      max-height:calc(100vh - 16px); zoom:1 !important; overflow-x:hidden;
+    }
+    #morseToMusicPanel .converter-header {
+      display:grid !important; grid-template-columns:58px 1fr 42px;
+      gap:8px !important; align-items:center !important; width:100%;
+    }
+    #morseToMusicPanel .morsica-mini-brand img {
+      width:58px !important; max-width:58px !important;
+    }
+    #morseToMusicPanel .converter-title { min-width:0; text-align:center; }
+    #morseToMusicPanel .converter-title h1 {
+      white-space:normal !important; overflow-wrap:anywhere; font-size:24px !important;
+      line-height:1.15 !important;
+    }
+    #morseToMusicPanel .converter-title p { font-size:15px !important; }
+    #morseToMusicPanel .kango-mascot { display:none !important; }
+    #morseToMusicPanel .popup-close {
+      position:static; grid-column:3; grid-row:1; width:42px; height:42px;
+      border:1px solid #a855f7; border-radius:50%; font-size:28px; z-index:4;
+    }
+    #morseToMusicPanel .converter-tabs { width:100%; grid-template-columns:1fr; }
+    #morseToMusicPanel .converter-section { padding:13px 10px; }
+    #morseToMusicPanel .result-row { grid-template-columns:1fr 1fr; gap:8px; }
+    #morseToMusicPanel .result-label,
+    #morseToMusicPanel .result-output { grid-column:1 / -1; width:100%; }
+    #morseToMusicPanel .small-action,
+    #morseToMusicPanel .result-action {
+      width:100% !important; min-height:44px; height:44px; color:#fff !important;
+      background:#11172a !important; border:1px solid #56617d !important;
+    }
+    #morseToMusicPanel .play-settings { grid-template-columns:1fr !important; }
+    #morseToMusicPanel .big-play { width:100% !important; border-radius:12px !important; height:50px !important; }
+    #morseToMusicPanel .instrument-control,
+    #morseToMusicPanel .tempo-control { width:100%; }
+    #morseToMusicPanel #smartInstrument,
+    #morseToMusicPanel #smartTempo { width:100%; }
+    #natureSoundPanel .morse-popup-box,
+    #liveVoicePanel .morse-popup-box { width:calc(100vw - 16px) !important; max-width:100%; }
+  }
+</style>
+
+<div id="morsicaToast" role="status" aria-live="polite"></div>
+<div id="homeListPanel" class="morse-popup" aria-hidden="true">
+  <div class="morse-popup-box">
+    <button class="popup-close" type="button" onclick="closeHomeListPanel()">✕</button>
+    <h2 id="homeListTitle">Saved items</h2>
+    <div id="homeListItems"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var toastTimer;
+  window.showMorsicaToast = function (message) {
+    var toast = document.getElementById('morsicaToast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2300);
+  };
+
+  function openTextProject(text) {
+    if (typeof window.openMorseToMusicPanel === 'function') window.openMorseToMusicPanel();
+    setTimeout(function () {
+      var input = document.getElementById('smartTextInput');
+      if (!input) return;
+      input.value = text || '';
+      if (input.value && typeof window.convertSmartText === 'function') window.convertSmartText();
+      input.focus();
+    }, 60);
+  }
+
+  var continueButton = document.querySelector('.continue button');
+  if (continueButton) continueButton.addEventListener('click', function () { openTextProject('HELLO WORLD'); });
+
+  var quickItems = document.querySelectorAll('.quickbar .quick');
+  quickItems.forEach(function (item, index) {
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    var activate = function () {
+      if (index === 0) openTextProject('HELLO WORLD');
+      if (index === 1) {
+        if (typeof window.openNatureSoundPanel === 'function') window.openNatureSoundPanel();
+        setTimeout(function () {
+          if (typeof window.selectNatureSound === 'function') window.selectNatureSound('rain');
+        }, 50);
+      }
+      if (index === 2) window.openFavoritesPanel();
+    };
+    item.addEventListener('click', activate);
+    item.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(); }
+    });
+  });
+
+  window.openFavoritesPanel = function () {
+    var panel = document.getElementById('homeListPanel');
+    var title = document.getElementById('homeListTitle');
+    var list = document.getElementById('homeListItems');
+    title.textContent = '⭐ Favorites';
+    list.innerHTML = '';
+    [
+      ['Text – Morse – Music', function () { closeHomeListPanel(); openTextProject('HELLO WORLD'); }],
+      ['Nature Sound – Rain', function () { closeHomeListPanel(); window.openNatureSoundPanel(); setTimeout(function(){ window.selectNatureSound('rain'); },50); }],
+      ['AI Formula Lab – Energy', function () {
+        closeHomeListPanel();
+        if (typeof window.openFormulaLabPanel === 'function') window.openFormulaLabPanel();
+        setTimeout(function () {
+          if (typeof window.setFormulaExample === 'function') window.setFormulaExample('E = mc²');
+        }, 60);
+      }]
+    ].forEach(function (entry) {
+      var button = document.createElement('button');
+      button.className = 'home-list-item';
+      button.innerHTML = '<strong>' + entry[0] + '</strong><span>Tap to open</span>';
+      button.addEventListener('click', entry[1]);
+      list.appendChild(button);
+    });
+    panel.classList.add('show');
+    panel.setAttribute('aria-hidden', 'false');
+  };
+
+  window.closeHomeListPanel = function () {
+    var panel = document.getElementById('homeListPanel');
+    if (panel) { panel.classList.remove('show'); panel.setAttribute('aria-hidden', 'true'); }
+  };
+
+  var search = document.querySelector('input.search');
+  if (search) {
+    search.addEventListener('input', function () {
+      var query = search.value.trim().toLowerCase();
+      var cards = document.querySelectorAll('.cards .card');
+      var shown = 0;
+      cards.forEach(function (card) {
+        var match = !query || card.textContent.toLowerCase().indexOf(query) !== -1;
+        card.classList.toggle('search-hidden', !match);
+        if (match) shown++;
+      });
+      if (query && shown === 0) window.showMorsicaToast('No matching MORSICA feature found');
+    });
+  }
+
+  function copyFallback(text) {
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (error) { ok = false; }
+    area.remove();
+    return ok;
+  }
+
+  window.copyMorsicaText = async function (text, successMessage) {
+    if (!text) { window.showMorsicaToast('Nothing to copy yet'); return false; }
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
+      else if (!copyFallback(text)) throw new Error('copy failed');
+      window.showMorsicaToast(successMessage || 'Copied successfully');
+      return true;
+    } catch (error) {
+      window.showMorsicaToast('Copy is unavailable in this browser');
+      return false;
+    }
+  };
+
+  window.copySmartMorse = function () {
+    var output = document.getElementById('smartMorseResult');
+    var value = output ? output.textContent.trim() : '';
+    if (value === 'Morse code will appear here') value = '';
+    return window.copyMorsicaText(value, 'Morse code copied');
+  };
+  window.copySmartText = function () {
+    var output = document.getElementById('smartTextResult');
+    var value = output ? output.textContent.trim() : '';
+    if (value === 'Your text will appear here') value = '';
+    return window.copyMorsicaText(value, 'Text copied');
+  };
+  window.copySmartMusic = function () {
+    var output = document.getElementById('smartMusicResult');
+    return window.copyMorsicaText(output ? output.textContent.trim() : '', 'Music notes copied');
+  };
+  window.shareSmartResult = async function () {
+    var text = document.getElementById('smartTextResult');
+    var morse = document.getElementById('smartMorseResult');
+    var music = document.getElementById('smartMusicResult');
+    var shareText = 'MORSICA – music beyond words\n\nText: ' + (text ? text.textContent.trim() : '') +
+      '\nMorse: ' + (morse ? morse.textContent.trim() : '') +
+      '\nMusic: ' + (music ? music.textContent.trim() : '');
+    if (navigator.share && window.isSecureContext) {
+      try { await navigator.share({ title:'MORSICA', text:shareText }); return; }
+      catch (error) { if (error && error.name === 'AbortError') return; }
+    }
+    var copied = await window.copyMorsicaText(shareText, 'Result copied—paste it in WhatsApp');
+    if (!copied) window.open('https://wa.me/?text=' + encodeURIComponent(shareText), '_blank');
+  };
+
+  window.restartSmartMusicIfplaying = function () {
+    if (typeof smartMusicPlaying !== 'undefined' && smartMusicPlaying) {
+      if (typeof stopSmartMusic === 'function') stopSmartMusic();
+      setTimeout(function () { if (typeof toggleSmartMusic === 'function') toggleSmartMusic(); }, 80);
+    }
+  };
+
+  var originalOpenLiveVoice = window.openLiveVoicePanel;
+  if (typeof originalOpenLiveVoice === 'function') {
+    window.openLiveVoicePanel = function () {
+      originalOpenLiveVoice();
+      if (!window.isSecureContext) {
+        setTimeout(function () {
+          var status = document.querySelector('#liveVoicePanel #voiceStatus, #liveVoicePanel .voice-status');
+          if (status) status.textContent = '🔒 Live Voice needs the final secure HTTPS app link.';
+        }, 50);
+      }
+    };
+  }
+
+  document.addEventListener('click', function (event) {
+    var panel = document.getElementById('homeListPanel');
+    if (event.target === panel) window.closeHomeListPanel();
+  });
+})();
+</script>
+</body>
+</html>
