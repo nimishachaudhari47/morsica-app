@@ -3290,7 +3290,10 @@ resetKangoSleepTimer();
         speechRecognition.lang =
             language ? language.value : "en-IN";
 
-        speechRecognition.continuous = true;
+        /* Android Chrome is substantially more reliable in single-utterance
+           mode. Continuous recognition can finish without delivering results,
+           especially when MediaRecorder is also using the microphone. */
+        speechRecognition.continuous = false;
         speechRecognition.interimResults = true;
 
         speechRecognition.onstart = function () {
@@ -3323,12 +3326,27 @@ resetKangoSleepTimer();
                     finalVoiceTranscript +
                     temporaryTranscript;
             }
+
+            if (event.results[event.results.length - 1].isFinal) {
+                setTimeout(function () {
+                    convertVoiceTextToMorse();
+                }, 100);
+            }
         };
 
         speechRecognition.onerror = function (event) {
             if (message) {
                 message.textContent =
                     "Recognition error: " + event.error;
+            }
+
+            const recordingMessage = document.getElementById(
+                "recordingMessage"
+            );
+
+            if (recordingMessage) {
+                recordingMessage.textContent =
+                    "Speech recognition error: " + event.error;
             }
         };
 
@@ -3356,27 +3374,43 @@ resetKangoSleepTimer();
 
     /* ===== CONNECT WITH RECORDING BUTTONS ===== */
 
-    const originalStartVoiceRecording =
-        window.startVoiceRecording;
-
-    const originalStopVoiceRecording =
-        window.stopVoiceRecording;
-
-    window.startVoiceRecording = async function () {
+    window.startVoiceRecording = function () {
         createVoiceConversionUI();
+        const recordingMessage = document.getElementById(
+            "recordingMessage"
+        );
+        const audio = document.getElementById("recordedAudio");
+        const download = document.getElementById(
+            "downloadVoiceRecording"
+        );
 
-        if (originalStartVoiceRecording) {
-            await originalStartVoiceRecording();
+        /* Do not start MediaRecorder at the same time as SpeechRecognition.
+           On Android Chrome the two microphone consumers conflict: an audio
+           file is produced, but the recognition callback receives no words. */
+        if (audio) audio.style.display = "none";
+        if (download) download.style.display = "none";
+        if (recordingMessage) {
+            recordingMessage.textContent =
+                "🔴 Listening — speak clearly now...";
         }
-
+        if (typeof kangoRecordingAction === "function") {
+            kangoRecordingAction();
+        }
         beginSpeechRecognition();
     };
 
     window.stopVoiceRecording = function () {
         endSpeechRecognition();
+        const recordingMessage = document.getElementById(
+            "recordingMessage"
+        );
 
-        if (originalStopVoiceRecording) {
-            originalStopVoiceRecording();
+        if (recordingMessage) {
+            recordingMessage.textContent =
+                "⏳ Converting recognized voice...";
+        }
+        if (typeof kangoHappyAction === "function") {
+            kangoHappyAction();
         }
     };
 
